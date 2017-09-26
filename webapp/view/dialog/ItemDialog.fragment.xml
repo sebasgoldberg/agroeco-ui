@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core" >
+   <Dialog
+      id="itemDialog"
+      title="Adicionar Item">
+
+        <content>
+            <Label text="Producto:"/>
+            <Input
+                id="productInput"
+                type="Text"
+                placeholder="Indique un producto ..."
+                showSuggestion="true"
+                suggestionItems="{products>/}" >
+                <suggestionItems>
+                    <core:ListItem text="{products>product/title}" additionalText="{products>uom/name}"/>
+                </suggestionItems>
+            </Input>
+
+            <Label text="Cantidad:"/>
+            <Input
+                placeholder="Indique la cantidad ..." >
+            </Input>
+        </content>
+
+        <beginButton>
+            <Button text="Adicionar" type="Emphasized" press="onAddItem"></Button>
+        </beginButton>
+
+        <endButton>
+            <Button text="Cancelar" type="Rejects" press="onCloseDialog"></Button>
+        </endButton>
+
+   </Dialog>
+</core:FragmentDefinition>

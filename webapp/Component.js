@@ -1,11 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"sap/ui/demo/basicTemplate/model/models"
+	"iamsoft/agroeco/model/models"
 ], function(UIComponent, Device, models) {
 	"use strict";
 
-	return UIComponent.extend("sap.ui.demo.basicTemplate.Component", {
+	return UIComponent.extend("iamsoft.agroeco.Component", {
 
 		metadata: {
 			manifest: "json"

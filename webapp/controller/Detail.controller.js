@@ -3,10 +3,11 @@ sap.ui.define([
 ], function(Controller) {
 	"use strict";
 
-	return Controller.extend("iamsoft.agroeco.controller.App", {
+	return Controller.extend("iamsoft.agroeco.controller.Detail", {
 
 		onInit: function () {
 
-		}
+		},
+
 	});
 });

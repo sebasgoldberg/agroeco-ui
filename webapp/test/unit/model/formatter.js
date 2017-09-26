@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"sap/ui/demo/basicTemplate/model/formatter"
+	"iamsoft/agroeco/model/formatter"
 ], function() {
 	"use strict";
 

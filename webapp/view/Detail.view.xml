@@ -1,0 +1,68 @@
+<mvc:View
+		height="100%"
+		xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.m"
+		xmlns:semantic="sap.m.semantic"
+		displayBlock="true"
+        controller="iamsoft.agroeco.controller.Detail">
+
+			<semantic:DetailPage
+					title="{i18n>detail.title}">
+
+                <IconTabBar
+                    expanded="true"
+                    id="idIconTabBar"
+                    class="sapUiResponsiveContentPadding"
+                    select="onTabSelect" >
+                    <items>
+
+                        <IconTabFilter
+                            icon="sap-icon://activity-items"
+                            iconColor=""
+                            design="Vertical"
+                            count="34"
+                            text="Items"
+                            key="Items"
+                            id="itemsTab">
+                            <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Items"/>
+                        </IconTabFilter>
+
+                        <IconTabSeparator icon="sap-icon://open-command-field" />
+
+                        <IconTabFilter
+                            icon="sap-icon://activities"
+                            iconColor="Critical"
+                            design="Vertical"
+                            count="18"
+                            text="Planificación"
+                            key="Planning"
+                            id="planningTab" >
+                            <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Planning"/>
+                        </IconTabFilter>
+                            
+                        <IconTabSeparator icon="sap-icon://open-command-field" />
+
+                        <IconTabFilter
+                            icon="sap-icon://cart-4"
+                            iconColor="Negative"
+                            design="Vertical"
+                            count="9"
+                            text="Pedidos"
+                            key="Orders"
+                            id="ordersTab" >
+                            <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Orders"/>
+                        </IconTabFilter>
+
+                    </items>
+                </IconTabBar>
+                
+				<semantic:customFooterContent>
+					<Button icon="sap-icon://less" type="Reject"/>
+					<Button icon="sap-icon://legend" type="Emphasized"/>
+					<Button icon="sap-icon://paper-plane" type="Accept"/>
+				</semantic:customFooterContent>
+
+			</semantic:DetailPage>
+
+</mvc:View>

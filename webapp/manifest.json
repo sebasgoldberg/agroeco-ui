@@ -1,7 +1,7 @@
 {
 	"_version": "1.5.0",
 	"sap.app": {
-		"id": "sap.ui.demo.basicTemplate",
+		"id": "iamsoft.agroeco",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -10,7 +10,13 @@
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"resources": "resources.json",
-		"ach": "ach"
+		"ach": "ach",
+		"dataSources": {
+			"mainService": {
+				"uri": "http://cerebro.vpn.iamsoft.org:8100/purchase/",
+				"type": "JSON"
+			}
+		}
 	},
 
 	"sap.ui": {
@@ -36,7 +42,7 @@
 
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "sap.ui.demo.basicTemplate.view.App",
+			"viewName": "iamsoft.agroeco.view.App",
 			"type": "XML"
 		},
 		"dependencies": {
@@ -52,10 +58,13 @@
 			"cozy": true
 		},
 		"models": {
+			"": {
+				"dataSource": "mainService"
+			},
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "sap.ui.demo.basicTemplate.i18n.i18n"
+					"bundleName": "iamsoft.agroeco.i18n.i18n"
 				}
 			}
 		},
@@ -63,20 +72,29 @@
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
-				"viewPath": "sap.ui.demo.basicTemplate.view",
-				"controlId": "app",
-				"controlAggregation": "pages"
+				"viewPath": "iamsoft.agroeco.view",
+				"controlId": "app"
 			},
 			"routes": [
 				{
 					"pattern": "",
 					"name": "home",
-					"target": "home"
+					"target": ["master", "detail"]
 				}
 			],
 			"targets": {
 				"home": {
 					"viewName": "App"
+				},
+				"master": {
+					"viewName": "Master",
+					"viewLevel": 1,
+					"controlAggregation": "masterPages"
+				},
+				"detail": {
+					"viewName": "Detail",
+					"viewLevel": 2,
+					"controlAggregation": "detailPages"
 				}
 			}
 		},

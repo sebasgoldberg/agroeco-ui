@@ -7,18 +7,18 @@ QUnit.config.autostart = false;
 
 sap.ui.require([
 	"sap/ui/test/Opa5",
-	"sap/ui/demo/basicTemplate/test/integration/pages/Common",
+	"iamsoft/agroeco/test/integration/pages/Common",
 	"sap/ui/test/opaQunit",
-	"sap/ui/demo/basicTemplate/test/integration/pages/App"
+	"iamsoft/agroeco/test/integration/pages/App"
 ], function (Opa5, Common) {
 	"use strict";
 	Opa5.extendConfig({
 		arrangements: new Common(),
-		viewNamespace: "sap.ui.demo.basicTemplate.view."
+		viewNamespace: "iamsoft.agroeco.view."
 	});
 
 	sap.ui.require([
-		"sap/ui/demo/basicTemplate/test/integration/navigationJourney"
+		"iamsoft/agroeco/test/integration/navigationJourney"
 	], function () {
 		QUnit.start();
 	});
