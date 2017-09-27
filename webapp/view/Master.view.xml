@@ -13,16 +13,14 @@
 					liveChange=""
 					width="100%" />
 			</Toolbar>
-            <List>
-				<items>
-					<StandardListItem
-						title="Almacén"
-						description="22/06/2017"
-						icon=""
-						iconDensityAware="false"
-						iconInset="false" 
-                        type="Active"/>
-			    </items>
+            <List items="{/}">
+				<StandardListItem
+					title="{name}"
+					description="{date}"
+					icon=""
+					iconDensityAware="false"
+					iconInset="false" 
+					type="Active"/>
             </List>
             <semantic:customFooterContent>
                 <Button icon="sap-icon://add" type="Emphasized"/>

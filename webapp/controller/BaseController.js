@@ -19,7 +19,7 @@ sap.ui.define([
             return this.getBaseUriService() + relativeUri;
         },
 
-        loadAndBindModel: function(relativeUri, modelName){
+        loadAndBindModel: function(relativeUri, modelName=undefined){
 
 			var uriService = this.getUriService(relativeUri);
 

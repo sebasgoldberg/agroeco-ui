@@ -1,12 +1,17 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function(Controller) {
+    "iamsoft/agroeco/controller/BaseController"
+], function(BaseController) {
 	"use strict";
 
-	return Controller.extend("iamsoft.agroeco.controller.Master", {
+	return BaseController.extend("iamsoft.agroeco.controller.Master", {
 
 		onInit: function () {
 
+			BaseController.prototype.onInit.bind(this)();
+
+			this.loadAndBindModel(
+				'lists');
+			
 		},
 
 	});
