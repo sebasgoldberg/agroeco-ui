@@ -19,7 +19,7 @@ sap.ui.define([
             return this.getBaseUriService() + relativeUri;
         },
 
-        loadAndBindModel: function(relativeUri, modelName=undefined){
+        loadAndBindModel: function(relativeUri, modelName=undefined, bindPath='/'){
 
 			var uriService = this.getUriService(relativeUri);
 
@@ -30,7 +30,7 @@ sap.ui.define([
                     success: function(data){
                         var oModel = new sap.ui.model.json.JSONModel(data);
                         this.getView().setModel(oModel, modelName);
-                        this.getView().bindElement({path:'/', model: modelName})
+                        this.getView().bindElement({path: bindPath, model: modelName})
                     }.bind(this)
                 }
             );

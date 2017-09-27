@@ -1,27 +1,58 @@
 <core:FragmentDefinition
    xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:f="sap.ui.layout.form"
    xmlns:core="sap.ui.core" >
    <Dialog
       id="itemDialog"
       title="Adicionar Item">
 
         <content>
-            <Label text="Producto:"/>
-            <Input
-                id="productInput"
-                type="Text"
-                placeholder="Indique un producto ..."
-                showSuggestion="true"
-                suggestionItems="{products>/}" >
-                <suggestionItems>
-                    <core:ListItem text="{products>product/title}" additionalText="{products>uom/name}"/>
-                </suggestionItems>
-            </Input>
+            <f:Form editable="true">
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="4"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+                </f:layout>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Producto">
+							<f:fields>
+                                <Input
+                                    id="productInput"
+                                    type="Text"
+                                    placeholder="Indique un producto ..."
+                                    showSuggestion="true"
+                                    suggestionItems="{products>/}" >
+                                    <suggestionItems>
+                                        <core:ListItem key="{products>id}" text="{products>product/title} [{products>uom/name}]"/>
+                                    </suggestionItems>
+                                </Input>
+							</f:fields>
+						</f:FormElement>
 
-            <Label text="Cantidad:"/>
-            <Input
-                placeholder="Indique la cantidad ..." >
-            </Input>
+						<f:FormElement label="Cantidad">
+							<f:fields>
+                                <Input
+                                    placeholder="Indique la cantidad ..." >
+                                </Input>
+							</f:fields>
+						</f:FormElement>
+
+					</f:formElements>
+				</f:FormContainer>
+            </f:Form>
         </content>
 
         <beginButton>
