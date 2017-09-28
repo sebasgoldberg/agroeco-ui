@@ -33,16 +33,17 @@ sap.ui.define([
 		},
 
 		onOpenAddItemDialog: function(){
-			var dialog = this.getAddItemDialog();
-			dialog.open();
+			this.getRouter().navTo("addItem");
+			// var dialog = this.getAddItemDialog();
+			// dialog.open();
 		},
 
-		onAddItem: function(){
-			this.getAddItemDialog().close();
-		},
+		// onAddItem: function(){
+		// 	this.getAddItemDialog().close();
+		// },
 
-		onCloseDialog: function(){
-			this.getAddItemDialog().close();
-		}
+		// onCloseDialog: function(){
+		// 	this.getAddItemDialog().close();
+		// }
 	});
 });

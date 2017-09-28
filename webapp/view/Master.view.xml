@@ -10,8 +10,9 @@
         <semantic:MasterPage title="{i18n>master.title}">
 			<Toolbar>
 				<SearchField
-					liveChange=""
-					width="100%" />
+					search="onSearch"
+					width="100%"
+					text="hola" />
 			</Toolbar>
             <List items="{/}">
 				<StandardListItem
@@ -23,7 +24,8 @@
 					type="Active"/>
             </List>
             <semantic:customFooterContent>
-                <Button icon="sap-icon://add" type="Emphasized"/>
+                <Button icon="sap-icon://add" type="Emphasized"
+					press="onAddItem"/>
             </semantic:customFooterContent>
         </semantic:MasterPage>
 

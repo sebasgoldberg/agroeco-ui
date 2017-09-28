@@ -10,7 +10,7 @@ sap.ui.define([
 			BaseController.prototype.onInit.bind(this)();
 
 			this.loadAndBindModel(
-				'resolutions/?limit=10&expand=item.product_uom.product,item.product_uom.uom',
+				'resolutions/?limit=20&offset=50&expand=item.product_uom.product,item.product_uom.uom,vendor_product.vendor',
 				undefined,
 				'/results/');
 

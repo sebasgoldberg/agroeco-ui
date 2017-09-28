@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-	"sap/ui/model/json/JSONModel"
-], function(Controller, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+	"sap/ui/core/routing/History"
+], function(Controller, JSONModel, History) {
 	"use strict";
 
 	return Controller.extend("iamsoft.agroeco.controller.BaseController", {
@@ -10,7 +11,11 @@ sap.ui.define([
             this._baseUriService = this.getOwnerComponent()
                 .getManifestEntry('/sap.app/dataSources/mainService/uri');
         },
-        
+
+        getRouter : function () {
+            return this.getOwnerComponent().getRouter();
+        },
+
         getBaseUriService: function(){
             return this._baseUriService;
         },
@@ -35,7 +40,18 @@ sap.ui.define([
                 }
             );
 
-        }
+        },
+
+		navBack: function (oEvent) {
+			var oHistory, sPreviousHash;
+			oHistory = History.getInstance();
+			sPreviousHash = oHistory.getPreviousHash();
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getRouter().navTo("master", {}, true /*no history*/);
+			}
+        },
 
 	});
 });

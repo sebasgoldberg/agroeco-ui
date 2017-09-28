@@ -1,0 +1,70 @@
+<mvc:View
+		height="100%"
+		xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.m"
+		xmlns:semantic="sap.m.semantic"
+		displayBlock="true"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form"
+        controllerName="iamsoft.agroeco.controller.AddListForm">
+
+    <semantic:DetailPage
+            title="Crear Lista de Compra"
+            showNavButton="true"
+		    navButtonPress="onNavBack">
+
+            <f:Form editable="true">
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="4"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+                </f:layout>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Producto">
+							<f:fields>
+                                <Input
+                                    id="productInput"
+                                    type="Text"
+                                    placeholder="Indique un producto ..."
+                                    showSuggestion="true"
+                                    suggestionItems="{products>/}" >
+                                    <suggestionItems>
+                                        <core:ListItem key="{products>id}" text="{products>product/title} [{products>uom/name}]"/>
+                                    </suggestionItems>
+                                </Input>
+							</f:fields>
+						</f:FormElement>
+
+						<f:FormElement label="Cantidad">
+							<f:fields>
+                                <Input
+                                    placeholder="Indique la cantidad ..." >
+                                </Input>
+							</f:fields>
+						</f:FormElement>
+
+					</f:formElements>
+				</f:FormContainer>
+            </f:Form>
+
+        <semantic:customFooterContent>
+            <Button text="Adicionar" type="Emphasized" press="onAdd"></Button>
+            <Button text="Cancelar" type="Rejects" press="onCancel"></Button>
+        </semantic:customFooterContent>
+
+    </semantic:DetailPage>
+
+</mvc:View>

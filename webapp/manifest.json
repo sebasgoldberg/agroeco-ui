@@ -78,14 +78,21 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "home",
-					"target": ["master", "detail"]
+					"name": "master",
+					"target": ["detail", "master"]
+				},
+				{
+					"pattern": "lists/add",
+					"name": "addList",
+					"target": ["master", "addListForm"]
+				},
+				{
+					"pattern": "item/add",
+					"name": "addItem",
+					"target": ["master", "addItemForm"]
 				}
 			],
 			"targets": {
-				"home": {
-					"viewName": "App"
-				},
 				"master": {
 					"viewName": "Master",
 					"viewLevel": 1,
@@ -95,6 +102,18 @@
 					"viewName": "Detail",
 					"viewLevel": 2,
 					"controlAggregation": "detailPages"
+				},
+				"addListForm": {
+					"viewName": "addListForm",
+					"viewLevel": 3,
+					"controlAggregation": "detailPages",
+					"transition": "flip"
+				},
+				"addItemForm": {
+					"viewName": "addItemForm",
+					"viewLevel": 3,
+					"controlAggregation": "detailPages",
+					"transition": "flip"
 				}
 			}
 		},

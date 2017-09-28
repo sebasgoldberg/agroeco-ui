@@ -27,13 +27,12 @@
         </headerToolbar>
 
 		<columns>
-			<Column mergeDuplicates="true">
+			<Column>
 				<header>
 					<Text text="Producto" />
 				</header>
 			</Column>
 			<Column
-				mergeDuplicates="true"
 				minScreenWidth="Tablet"
 				demandPopin="true"
 				hAlign="Center" >
@@ -43,23 +42,30 @@
 			</Column>
 
 
-			<Column mergeDuplicates="true">
+			<Column>
 				<header>
 					<Text text="Proveedor" />
 				</header>
 			</Column>
-			<Column mergeDuplicates="true">
+			<Column>
 				<header>
 					<Text text="Producto" />
 				</header>
 			</Column>
 			<Column
-				mergeDuplicates="true"
 				minScreenWidth="Tablet"
 				demandPopin="true"
 				hAlign="Center" >
 				<header>
 					<Text text="Cantidad" />
+				</header>
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="Center" >
+				<header>
+					<Text text="Precio Total" />
 				</header>
 			</Column>
 			
@@ -70,10 +76,14 @@
 				number="{item/quantity}" unit="{item/product_uom/uom/name}"
 				state="" />
 
-			<ObjectIdentifier title="{product_vendor/vendor/name}" text="" />
-			<ObjectIdentifier title="{product_vendor/name}" text="" />
+			<ObjectIdentifier title="{vendor_product/vendor/name}" text="" />
+			<ObjectIdentifier title="{vendor_product/name}" 
+				text="(x{vendor_product/quantity} {item/product_uom/uom/name})" />
 			<ObjectNumber
-				number="{quantity}" unit="{product_vendor/uom/name}"
+				number="{quantity}" unit=""
+				state="" />
+			<ObjectNumber
+				number="{price}" unit="ARS"
 				state="" />
 
 		</ColumnListItem>
