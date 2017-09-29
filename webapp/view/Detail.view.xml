@@ -5,10 +5,10 @@
 		xmlns="sap.m"
 		xmlns:semantic="sap.m.semantic"
 		displayBlock="true"
-        controller="iamsoft.agroeco.controller.Detail">
+        controllerName="iamsoft.agroeco.controller.Detail">
 
 			<semantic:DetailPage
-					title="{i18n>detail.title}">
+					title="{i18n>detail.title}: {/name} ({/date})">
 
                 <IconTabBar
                     expanded="true"
@@ -25,7 +25,7 @@
                             text="Items"
                             key="Items"
                             id="itemsTab">
-                            <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Items"/>
+                            <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Items"/> -->
                         </IconTabFilter>
 
                         <IconTabSeparator icon="sap-icon://open-command-field" />
@@ -58,7 +58,7 @@
                 </IconTabBar>
                 
 				<semantic:customFooterContent>
-					<Button icon="sap-icon://less" type="Reject"/>
+					<Button icon="sap-icon://less" type="Reject" press="onDeleteList"/>
 					<Button icon="sap-icon://legend" type="Emphasized"/>
 					<Button icon="sap-icon://paper-plane" type="Accept"/>
 				</semantic:customFooterContent>

@@ -79,17 +79,31 @@
 				{
 					"pattern": "",
 					"name": "master",
-					"target": ["detail", "master"]
+					"target": ["master", "detail"]
+				},
+				{
+					"pattern": "detail/{listId}",
+					"name": "detail",
+					"target": ["detail"],
+					"parent": "master"
+				},
+				{
+					"pattern": "items",
+					"name": "items",
+					"target": ["items"],
+					"parent": "detail"
 				},
 				{
 					"pattern": "lists/add",
 					"name": "addList",
-					"target": ["master", "addListForm"]
+					"target": ["addListForm"],
+					"parent": "master"
 				},
 				{
-					"pattern": "item/add",
+					"pattern": "add",
 					"name": "addItem",
-					"target": ["master", "addItemForm"]
+					"target": ["addItemForm"],
+					"parent": "items"
 				}
 			],
 			"targets": {
@@ -103,15 +117,23 @@
 					"viewLevel": 2,
 					"controlAggregation": "detailPages"
 				},
+				"items": {
+					"viewPath": "iamsoft.agroeco.view.detail",
+					"viewName": "Items",
+					"viewLevel": 3,
+					"controlAggregation": "content",
+					"controlId":"itemsTab",
+					"parent": "detail"
+				},
 				"addListForm": {
 					"viewName": "addListForm",
-					"viewLevel": 3,
+					"viewLevel": 10,
 					"controlAggregation": "detailPages",
 					"transition": "flip"
 				},
 				"addItemForm": {
 					"viewName": "addItemForm",
-					"viewLevel": 3,
+					"viewLevel": 10,
 					"controlAggregation": "detailPages",
 					"transition": "flip"
 				}

@@ -10,9 +10,7 @@ sap.ui.define([
 
 			BaseController.prototype.onInit.bind(this)();
 
-			this.getRouter().getRoute("master").attachPatternMatched(this._onMasterMatched, this);
-			this.getRouter().getRoute("addList").attachPatternMatched(this._onMasterMatched, this);
-			this.getRouter().getRoute("addItem").attachPatternMatched(this._onMasterMatched, this);
+			this.getRouter().getRoute("master").attachMatched(this._onMasterMatched, this);
 			
 		},
 
@@ -28,20 +26,26 @@ sap.ui.define([
 		},
 
 		refreshLists: function(){
-			var query = '';
-			if (this._searchQuery){
-				query = jQuery.param({
+			var query = {};
+			if (this._searchQuery)
+				query = {
 					search: this._searchQuery
-				})
-			}
-			this.loadAndBindModel('lists?' + query);
+				};
+			
+			query.ordering = '-date,-id';
+			this.loadAndBindModel('lists?' + jQuery.param(query));
 		},
 
 		onAddItem: function(){
 			this.getRouter().navTo("addList");
-		}
+		},
 
-
+		onSelectList: function(oEvent){
+			var oList = oEvent.getSource();
+			this.getRouter().navTo("items", {
+				listId : oList.getBindingContext().getProperty("id")
+			}, true);
+		},
 
 	});
 });

@@ -10,7 +10,7 @@
         controllerName="iamsoft.agroeco.controller.AddItemForm">
 
     <semantic:DetailPage
-            title="Crear Lista de Compra"
+            title="Agregar Item a Lista {list>name}"
             showNavButton="true"
 		    navButtonPress="onNavBack">
 
@@ -38,9 +38,11 @@
                                 <Input
                                     id="productInput"
                                     type="Text"
+                                    textFormatMode="KeyValue"
                                     placeholder="Indique un producto ..."
                                     showSuggestion="true"
-                                    suggestionItems="{products>/}" >
+                                    suggestionItems="{products>/}"
+                                    selectedKey="{form>product_uom}" >
                                     <suggestionItems>
                                         <core:ListItem key="{products>id}" text="{products>product/title} [{products>uom/name}]"/>
                                     </suggestionItems>
@@ -51,6 +53,7 @@
 						<f:FormElement label="Cantidad">
 							<f:fields>
                                 <Input
+                                    value="{form>quantity}"
                                     placeholder="Indique la cantidad ..." >
                                 </Input>
 							</f:fields>

@@ -9,31 +9,39 @@ sap.ui.define([
 
 			BaseController.prototype.onInit.bind(this)();
 
-			this.loadAndBindModel(
-				'product_uom/?expand=product,uom',
-				'products');
+			this.getRouter().getRoute("items").attachMatched(this._onItemsMatched, this);
+
+		},
+
+		_onItemsMatched: function (oEvent) {
+			this._listId =  oEvent.getParameter("arguments").listId;
+
+			// this.loadAndBindModel(
+			// 	'product_uom/?expand=product,uom',
+			// 	'products');
 
 			this.loadAndBindModel(
-				'items/?limit=10&expand=product_uom.product,product_uom.uom',
-				undefined,
-				'/results/');
+				`items/?purchase_list=${this._listId}&expand=product_uom.product,product_uom.uom`);
 	
+
+			// this.loadAndBindModel(`lists/${listId}/`);
+			// this.getRouter().getTargets().display("items");
 		},
 
-		getAddItemDialog: function(){
-			if (!this._addItemDialog){
-				var oView = this.getView();
-				this._addItemDialog = sap.ui.xmlfragment(
-					oView.getId(), 
-					"iamsoft.agroeco.view.dialog.ItemDialog",
-					this);
-				oView.addDependent(this._addItemDialog);
-			}
-			return this._addItemDialog
-		},
+		// getAddItemDialog: function(){
+		// 	if (!this._addItemDialog){
+		// 		var oView = this.getView();
+		// 		this._addItemDialog = sap.ui.xmlfragment(
+		// 			oView.getId(), 
+		// 			"iamsoft.agroeco.view.dialog.ItemDialog",
+		// 			this);
+		// 		oView.addDependent(this._addItemDialog);
+		// 	}
+		// 	return this._addItemDialog
+		// },
 
 		onOpenAddItemDialog: function(){
-			this.getRouter().navTo("addItem");
+			this.getRouter().navTo("addItem", {listId: this._listId});
 			// var dialog = this.getAddItemDialog();
 			// dialog.open();
 		},

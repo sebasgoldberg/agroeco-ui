@@ -27,7 +27,7 @@
         </headerToolbar>
 
 		<columns>
-			<Column mergeDuplicates="true">
+			<Column>
 				<header>
 					<Text text="Producto" />
 				</header>

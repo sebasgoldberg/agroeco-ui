@@ -1,6 +1,7 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
-], function(BaseController) {
+    "sap/ui/model/json/JSONModel",
+], function(BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.AddListForm", {
@@ -19,10 +20,26 @@ sap.ui.define([
 
 		_onAddListMatched: function(){
 
+			var oModel = new JSONModel({
+				list: {
+					name: "",
+				},
+			});
+			this.getView().setModel(oModel, 'form');
+			this.getView().bindElement({path: '/', model: 'form'})
+
 		},
 
 		onAdd: function(){
-			this.navBack();
+			name = this.getView().getModel('form').getProperty('/list/name');
+			this.post('lists/', JSON.stringify({'name': name })).then(
+				function(data){
+					this.getRouter().navTo('items', {listId: data['id']});
+				}.bind(this),
+				function(reason){
+					console.error(reason);
+				}.bind(this)
+			);
 		},
 
 		onCancel: function(){

@@ -33,29 +33,16 @@
                 </f:layout>
 				<f:FormContainer>
 					<f:formElements>
-						<f:FormElement label="Producto">
+						<f:FormElement label="Nombre">
 							<f:fields>
                                 <Input
-                                    id="productInput"
+                                    id="nombreInput"
                                     type="Text"
-                                    placeholder="Indique un producto ..."
-                                    showSuggestion="true"
-                                    suggestionItems="{products>/}" >
-                                    <suggestionItems>
-                                        <core:ListItem key="{products>id}" text="{products>product/title} [{products>uom/name}]"/>
-                                    </suggestionItems>
-                                </Input>
+                                    placeholder="Indique un nombre ..."
+                                    value='{form>/list/name}'
+                                    />
 							</f:fields>
 						</f:FormElement>
-
-						<f:FormElement label="Cantidad">
-							<f:fields>
-                                <Input
-                                    placeholder="Indique la cantidad ..." >
-                                </Input>
-							</f:fields>
-						</f:FormElement>
-
 					</f:formElements>
 				</f:FormContainer>
             </f:Form>

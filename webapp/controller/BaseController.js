@@ -12,6 +12,10 @@ sap.ui.define([
                 .getManifestEntry('/sap.app/dataSources/mainService/uri');
         },
 
+        getModel : function (sName) {
+            return this.getView().getModel(sName);
+        },
+
         getRouter : function () {
             return this.getOwnerComponent().getRouter();
         },
@@ -33,13 +37,56 @@ sap.ui.define([
                 {
                     dataType: "json",
                     success: function(data){
-                        var oModel = new sap.ui.model.json.JSONModel(data);
+                        var oModel = new JSONModel(data);
                         this.getView().setModel(oModel, modelName);
                         this.getView().bindElement({path: bindPath, model: modelName})
                     }.bind(this)
                 }
             );
 
+        },
+
+        post: function(relativeUri, data){
+            return new Promise(function(resolve, reject){
+
+                var uriService = this.getUriService(relativeUri);
+                
+                jQuery.ajax(uriService,
+                    {
+                        type : "POST",
+                        contentType : "application/json",
+                        dataType : "json",
+                        data: data,
+                        success : function(data,textStatus, jqXHR) {
+                            resolve(data);
+                        }
+                    }
+                ).fail(function( jqXHR, textStatus, errorThrown ) {
+                    reject(jqXHR.responseJSON)
+                });
+                
+            }.bind(this));
+        },
+
+        delete: function(relativeUri){
+            return new Promise(function(resolve, reject){
+
+                var uriService = this.getUriService(relativeUri);
+                
+                jQuery.ajax(uriService,
+                    {
+                        type : "DELETE",
+                        contentType : "application/json",
+                        dataType : "json",
+                        success : function(data,textStatus, jqXHR) {
+                            resolve(data);
+                        }
+                    }
+                ).fail(function( jqXHR, textStatus, errorThrown ) {
+                    reject(jqXHR.responseJSON)
+                });
+                
+            }.bind(this));
         },
 
 		navBack: function (oEvent) {
