@@ -17,7 +17,7 @@ sap.ui.define([
 			this._listId =  oEvent.getParameter("arguments").listId;
 
 			this.loadAndBindModel(
-				`resolutions/?item__purchase_list=${this._listId}&expand=item.product_uom.product,item.product_uom.uom,vendor_product.vendor`);
+				`resolutions/?item__purchase_list=${this._listId}&expand=vendor_product.vendor,vendor_product.product_uom.uom`);
 		},
 
 		onAddItem: function(){

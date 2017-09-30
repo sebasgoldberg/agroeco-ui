@@ -60,7 +60,7 @@
                 
 				<semantic:customFooterContent>
 					<Button icon="sap-icon://less" type="Reject" press="onDeleteList"/>
-					<Button icon="sap-icon://legend" type="Emphasized"/>
+					<Button icon="sap-icon://activities" type="Emphasized"/>
 					<Button icon="sap-icon://paper-plane" type="Accept"/>
 				</semantic:customFooterContent>
 

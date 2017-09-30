@@ -11,10 +11,19 @@ sap.ui.define([
 			BaseController.prototype.onInit.bind(this)();
 
 			this.getRouter().getRoute("master").attachMatched(this._onMasterMatched, this);
+			this.getRouter().getRoute("master").attachPatternMatched(this._onMasterPatternMatched, this);
 			
 		},
 
 		_onMasterMatched: function(oEvent){
+
+			this._listId = oEvent.getParameter("arguments").listId;
+			
+			this.refreshLists(false);
+
+		},
+
+		_onMasterPatternMatched: function(oEvent){
 
 			this._listId = oEvent.getParameter("arguments").listId;
 			
@@ -31,7 +40,7 @@ sap.ui.define([
 			return this._listId !== undefined;
 		},
 
-		refreshLists: function(){
+		refreshLists: function(selectFirst=true){
 			var query = {};
 			if (this._searchQuery)
 				query = {
@@ -41,7 +50,7 @@ sap.ui.define([
 			query.ordering = '-date,-id';
 			this.loadAndBindModel('lists?' + jQuery.param(query)).then(
 				function(data){
-					if (!this.listSelected() && data.length>0){
+					if (selectFirst && !this.listSelected() && data.length>0){
 						this.getRouter().navTo("items",{
 							listId: data[0].id,
 						});

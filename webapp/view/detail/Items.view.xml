@@ -7,7 +7,9 @@
 
 
 	<Table
+		id="itemsTable"
 		headerText="Products"
+		mode="MultiSelect"
 		items="{
 			path:'',
 			sorter: {
@@ -22,6 +24,7 @@
                 <ToolbarSpacer/>
                 
                 <Button	text="" press="onAddItem" icon="sap-icon://add"/>
+                <Button	text="" press="onRemoveItem" icon="sap-icon://less"/>
 
             </Toolbar>
         </headerToolbar>

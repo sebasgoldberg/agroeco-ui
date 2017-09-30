@@ -27,7 +27,7 @@
         </headerToolbar>
 
 		<columns>
-			<Column>
+			<!-- <Column>
 				<header>
 					<Text text="Producto" />
 				</header>
@@ -39,7 +39,7 @@
 				<header>
 					<Text text="Cantidad" />
 				</header>
-			</Column>
+			</Column> -->
 
 
 			<Column>
@@ -71,14 +71,14 @@
 			
 		</columns>
 		<ColumnListItem>
-			<ObjectIdentifier title="{item/product_uom/product/title}" text="" />
+			<!-- <ObjectIdentifier title="{item/product_uom/product/title}" text="" />
 			<ObjectNumber
 				number="{item/quantity}" unit="{item/product_uom/uom/name}"
-				state="" />
+				state="" /> -->
 
 			<ObjectIdentifier title="{vendor_product/vendor/name}" text="" />
 			<ObjectIdentifier title="{vendor_product/name}" 
-				text="(x{vendor_product/quantity} {item/product_uom/uom/name})" />
+				text="(x{vendor_product/quantity} {vendor_product/product_uom/uom/name})" />
 			<ObjectNumber
 				number="{quantity}" unit=""
 				state="" />
