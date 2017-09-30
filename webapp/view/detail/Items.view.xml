@@ -21,7 +21,7 @@
                 <Title text="Items" level="H2"/>
                 <ToolbarSpacer/>
                 
-                <Button	text="" press="onOpenAddItemDialog" icon="sap-icon://add"/>
+                <Button	text="" press="onAddItem" icon="sap-icon://add"/>
 
             </Toolbar>
         </headerToolbar>
@@ -37,7 +37,7 @@
 				demandPopin="true"
 				hAlign="Center" >
 				<header>
-					<Text text="Cantidad" />
+					<Text text="Cantidad Requerida" />
 				</header>
 			</Column>
 		</columns>

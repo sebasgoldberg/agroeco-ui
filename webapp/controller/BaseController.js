@@ -29,21 +29,26 @@ sap.ui.define([
         },
 
         loadAndBindModel: function(relativeUri, modelName=undefined, bindPath='/'){
+            return new Promise(function(resolve, reject){
 
-			var uriService = this.getUriService(relativeUri);
+                var uriService = this.getUriService(relativeUri);
 
-            jQuery.ajax(
-                uriService,
-                {
-                    dataType: "json",
-                    success: function(data){
-                        var oModel = new JSONModel(data);
-                        this.getView().setModel(oModel, modelName);
-                        this.getView().bindElement({path: bindPath, model: modelName})
-                    }.bind(this)
-                }
-            );
+                jQuery.ajax(
+                    uriService,
+                    {
+                        dataType: "json",
+                        success: function(data){
+                            var oModel = new JSONModel(data);
+                            this.getView().setModel(oModel, modelName);
+                            this.getView().bindElement({path: bindPath, model: modelName})
+                            resolve(data);
+                        }.bind(this)
+                    }
+                ).fail(function( jqXHR, textStatus, errorThrown ) {
+                    reject(jqXHR)
+                });
 
+            }.bind(this));
         },
 
         post: function(relativeUri, data){

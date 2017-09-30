@@ -9,11 +9,19 @@ sap.ui.define([
 
 			BaseController.prototype.onInit.bind(this)();
 
-			this.loadAndBindModel(
-				'resolutions/?item__purchase_list=17&expand=item.product_uom.product,item.product_uom.uom,vendor_product.vendor',
-				undefined,
-				'/');
+			this.getRouter().getRoute("planning").attachMatched(this._onItemsMatched, this);
 
+		},
+
+		_onItemsMatched: function (oEvent) {
+			this._listId =  oEvent.getParameter("arguments").listId;
+
+			this.loadAndBindModel(
+				`resolutions/?item__purchase_list=${this._listId}&expand=item.product_uom.product,item.product_uom.uom,vendor_product.vendor`);
+		},
+
+		onAddItem: function(){
+			this.getRouter().navTo("addResolution", {listId: this._listId});
 		},
 
 	});

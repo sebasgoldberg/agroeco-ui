@@ -94,6 +94,12 @@
 					"parent": "detail"
 				},
 				{
+					"pattern": "planning",
+					"name": "planning",
+					"target": ["planning"],
+					"parent": "detail"
+				},
+				{
 					"pattern": "lists/add",
 					"name": "addList",
 					"target": ["addListForm"],
@@ -123,6 +129,14 @@
 					"viewLevel": 3,
 					"controlAggregation": "content",
 					"controlId":"itemsTab",
+					"parent": "detail"
+				},
+				"planning": {
+					"viewPath": "iamsoft.agroeco.view.detail",
+					"viewName": "Planning",
+					"viewLevel": 3,
+					"controlAggregation": "content",
+					"controlId":"planningTab",
 					"parent": "detail"
 				},
 				"addListForm": {

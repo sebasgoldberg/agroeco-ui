@@ -1,6 +1,7 @@
 sap.ui.define([
-	"iamsoft/agroeco/controller/BaseController"
-], function(BaseController) {
+	"iamsoft/agroeco/controller/BaseController",
+    "sap/ui/model/json/JSONModel",
+], function(BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.Detail", {
@@ -9,7 +10,21 @@ sap.ui.define([
 
 			BaseController.prototype.onInit.bind(this)();
 			
+			var oModel = new JSONModel({
+				selectedTabKey: "",
+			});
+
+			this.getView().setModel(oModel, 'view');
+
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
+
+			this.getRouter().getRoute("items").attachMatched(function(){
+				this.getModel("view").setProperty("/selectedTabKey", "items")
+			}, this);
+
+			this.getRouter().getRoute("planning").attachMatched(function(){
+				this.getModel("view").setProperty("/selectedTabKey", "planning")
+			}, this);
 
 		},
 
@@ -30,6 +45,14 @@ sap.ui.define([
 				}.bind(this)
 			);
 		},
+
+		onTabSelect : function (oEvent){
+			var listId =  this.getModel().getProperty("/id");						
+			var selectedKey = oEvent.getParameter("selectedKey");
+			this.getRouter().navTo(selectedKey, {
+				listId : listId,
+			}, true /*without history*/);
+		}
 
 	});
 });

@@ -14,7 +14,8 @@
                     expanded="true"
                     id="idIconTabBar"
                     class="sapUiResponsiveContentPadding"
-                    select="onTabSelect" >
+                    select="onTabSelect"
+                    selectedKey="{view>/selectedTabKey}" >
                     <items>
 
                         <IconTabFilter
@@ -23,7 +24,7 @@
                             design="Vertical"
                             count="34"
                             text="Items"
-                            key="Items"
+                            key="items"
                             id="itemsTab">
                             <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Items"/> -->
                         </IconTabFilter>
@@ -36,9 +37,9 @@
                             design="Vertical"
                             count="18"
                             text="Planificación"
-                            key="Planning"
+                            key="planning"
                             id="planningTab" >
-                            <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Planning"/>
+                            <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Planning"/> -->
                         </IconTabFilter>
                             
                         <IconTabSeparator icon="sap-icon://open-command-field" />
@@ -49,7 +50,7 @@
                             design="Vertical"
                             count="9"
                             text="Pedidos"
-                            key="Orders"
+                            key="orders"
                             id="ordersTab" >
                             <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Orders"/>
                         </IconTabFilter>
