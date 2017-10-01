@@ -140,13 +140,13 @@
 					"parent": "detail"
 				},
 				"addListForm": {
-					"viewName": "addListForm",
+					"viewName": "AddListForm",
 					"viewLevel": 10,
 					"controlAggregation": "detailPages",
 					"transition": "flip"
 				},
 				"addItemForm": {
-					"viewName": "addItemForm",
+					"viewName": "AddItemForm",
 					"viewLevel": 10,
 					"controlAggregation": "detailPages",
 					"transition": "flip"
