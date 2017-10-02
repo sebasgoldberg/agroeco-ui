@@ -68,9 +68,11 @@ sap.ui.define([
 		},
 
 		onSelectList: function(oEvent){
-			var oList = oEvent.getSource();
+			var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
+			// var oList = oEvent.getSource();
 			this.getRouter().navTo("items", {
-				listId : oList.getBindingContext().getProperty("id")
+				// listId : oList.getBindingContext().getProperty("id")
+				listId: oItem.getBindingContext().getProperty("id")
 			}, true);
 		},
 

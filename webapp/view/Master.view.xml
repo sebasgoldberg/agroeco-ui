@@ -14,7 +14,11 @@
 					width="100%"
 					text="" />
 			</Toolbar>
-            <List items="{/}">
+            <List 
+				items="{/}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				selectionChange="onSelectList"
+				>
 				<StandardListItem
 					title="{name}"
 					description="{date}"
@@ -22,7 +26,7 @@
 					iconDensityAware="false"
 					iconInset="false" 
 					type="Active"
-					press="onSelectList"
+					press=""
 					/>
             </List>
             <semantic:customFooterContent>
