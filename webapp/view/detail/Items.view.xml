@@ -23,9 +23,9 @@
                 <Title text="Items" level="H2"/>
                 <ToolbarSpacer/>
                 
-                <Button	text="" press="onResolve" icon="sap-icon://activate"/>
                 <Button	text="" press="onAddItem" icon="sap-icon://add"/>
                 <Button	text="" press="onRemoveItem" icon="sap-icon://less"/>
+                <Button	text="" press="onResolve" icon="sap-icon://activate"/>
 
             </Toolbar>
         </headerToolbar>
