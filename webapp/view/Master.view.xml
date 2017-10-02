@@ -16,7 +16,7 @@
 			</Toolbar>
             <List 
 				items="{/}"
-				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				mode="SingleSelectMaster"
 				selectionChange="onSelectList"
 				>
 				<StandardListItem
