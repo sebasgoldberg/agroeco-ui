@@ -1,6 +1,7 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
-], function(BaseController) {
+	'sap/m/MessageToast',
+], function(BaseController, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.detail.Planning", {
@@ -16,13 +17,45 @@ sap.ui.define([
 		_onItemsMatched: function (oEvent) {
 			this._listId =  oEvent.getParameter("arguments").listId;
 
+			this.refreshItems();
+		},
+
+		onRemoveResolution: function(oEvent){
+			this.removeFromTable("resolutionsTable", function(object){
+				return this.delete(`resolutions/${object.id}/`);
+			}.bind(this)).then(
+				function(data){
+					this.refreshItems();
+				}.bind(this),
+				function(reason){
+					console.error(reason);
+				}.bind(this));
+		},
+
+		refreshItems: function(){
 			this.loadAndBindModel(
 				`resolutions/?item__purchase_list=${this._listId}&expand=vendor_product.vendor,vendor_product.product_uom.uom`);
 		},
 
-		onAddItem: function(){
-			this.getRouter().navTo("addResolution", {listId: this._listId});
-		},
+		// sendResolutions(){
+		// 	return this.post(
+		// 		`lists/${this._listId}/email/`,
+		// 		{
+		// 			email: 'sebas.goldberg@gmail.com'
+		// 		}
+		// 	);
+		// },
+
+		// onSendResolutions: function(){
+		// 	this.sendResolutions().then(
+		// 		function(data){
+		// 			MessageToast.show(data.status);
+		// 		}.bind(this),
+		// 		function(reason){
+		// 			MessageToast.show(reason.status);
+		// 		}
+		// 	);
+		// }
 
 	});
 });

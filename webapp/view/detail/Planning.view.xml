@@ -7,7 +7,9 @@
 
 
 	<Table
+		id="resolutionsTable"
 		headerText="Products"
+		mode="MultiSelect"
 		items="{
 			path:'',
 			sorter: {
@@ -21,7 +23,9 @@
                 <Title text="Planificación" level="H2"/>
                 <ToolbarSpacer/>
                 
-                <Button	text="" press="onOpenAddResolutionDialog" icon="sap-icon://add"/>
+                <!-- <Button	text="" press="onAddResolution" icon="sap-icon://add"/> -->
+                <Button	text="" press="onRemoveResolution" icon="sap-icon://less"/>
+                <!-- <Button	text="" press="onSendResolutions" icon="sap-icon://email"/> -->
 
             </Toolbar>
         </headerToolbar>

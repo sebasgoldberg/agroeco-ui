@@ -110,6 +110,12 @@
 					"name": "addItem",
 					"target": ["addItemForm"],
 					"parent": "items"
+				},
+				{
+					"pattern": "{itemId}/resolutions/add",
+					"name": "addResolution",
+					"target": ["addResolutionForm"],
+					"parent": "items"
 				}
 			],
 			"targets": {
@@ -147,6 +153,12 @@
 				},
 				"addItemForm": {
 					"viewName": "AddItemForm",
+					"viewLevel": 10,
+					"controlAggregation": "detailPages",
+					"transition": "flip"
+				},
+				"addResolutionForm": {
+					"viewName": "AddResolutionForm",
 					"viewLevel": 10,
 					"controlAggregation": "detailPages",
 					"transition": "flip"

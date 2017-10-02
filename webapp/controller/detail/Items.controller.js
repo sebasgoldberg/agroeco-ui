@@ -28,25 +28,27 @@ sap.ui.define([
 			this.getRouter().navTo("addItem", {listId: this._listId});
 		},
 
-		onRemoveItem: function(oEvent){
+		onAddResolution: function(){
 			var aContexts = this.getView().byId("itemsTable").getSelectedContexts();
-
 			if (aContexts && aContexts.length) {
+				var itemId = aContexts[0].getObject().id; 
+				return this.getRouter().navTo("addResolution",{
+					listId: this._listId,
+					itemId: itemId
+				})
+			}	
+		},
 
-				var deletePromises = aContexts.map(function(oContext) {
-					var itemId = oContext.getObject().id; 
-					return this.delete(`items/${itemId}/`)
+		onRemoveItem: function(oEvent){
+			this.removeFromTable("itemsTable", function(object){
+				return this.delete(`items/${object.id}/`);
+			}.bind(this)).then(
+				function(data){
+					this.refreshItems();
+				}.bind(this),
+				function(reason){
+					console.error(reason);
 				}.bind(this));
-
-				// Wait for deletion of all items.
-				Promise.all(deletePromises).then(
-					function(data){
-						this.refreshItems();
-					}.bind(this),
-					function(reason){
-						console.error(reason);
-					}.bind(this));
-			}
 		},
 	
 		resolve: function(){

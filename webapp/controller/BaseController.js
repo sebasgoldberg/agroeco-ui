@@ -114,5 +114,22 @@ sap.ui.define([
 			}
         },
 
+		removeFromTable: function(tableId, deleterPromiseCreator){
+			var aContexts = this.getView().byId(tableId).getSelectedContexts();
+
+			if (aContexts && aContexts.length) {
+
+				var deletePromises = aContexts.map(function(oContext) {
+					return deleterPromiseCreator(oContext.getObject());
+				}.bind(this));
+
+				return Promise.all(deletePromises);
+			}
+
+			return new Promise(function(resolve, reject){
+				reject("Debe seleccionar al menos un item.");
+			})
+		},
+
 	});
 });
