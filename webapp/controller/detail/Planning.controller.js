@@ -34,7 +34,14 @@ sap.ui.define([
 
 		refreshItems: function(){
 			this.loadAndBindModel(
-				`resolutions/?item__purchase_list=${this._listId}&expand=vendor_product.vendor,vendor_product.product_uom.uom`);
+				`resolutions/?item__purchase_list=${this._listId}&expand=vendor_product.vendor,vendor_product.product_uom.uom`)
+				.then(
+					function(data){
+						var eventBus = sap.ui.getCore().getEventBus();
+						// 1. ChannelName, 2. EventName, 3. the data
+						eventBus.publish("ListChannel", "onResolutionsLoaded", data);
+					}
+				);
 		},
 
 		// sendResolutions(){

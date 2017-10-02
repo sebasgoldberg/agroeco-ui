@@ -9,13 +9,20 @@ sap.ui.define([
 		onInit: function () {
 
 			BaseController.prototype.onInit.bind(this)();
-			
+
 			var oModel = new JSONModel({
 				selectedTabKey: "",
+				itemsCount: "",
+				resolutionsCount: "",
 			});
 
 			this.getView().setModel(oModel, 'view');
 
+			var eventBus = sap.ui.getCore().getEventBus();
+
+			eventBus.subscribe("ListChannel", "onItemsLoaded", this.onItemsLoaded, this);
+			eventBus.subscribe("ListChannel", "onResolutionsLoaded", this.onResolutionsLoaded, this);
+			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
 			this.getRouter().getRoute("items").attachMatched(function(){
@@ -26,6 +33,14 @@ sap.ui.define([
 				this.getModel("view").setProperty("/selectedTabKey", "planning")
 			}, this);
 
+		},
+
+		onItemsLoaded: function(channel, event, data){
+			this.getModel().setProperty('/itemsCount', data.length)
+		},
+
+		onResolutionsLoaded: function(channel, event, data){
+			this.getModel().setProperty('/resolutionsCount', data.length)
 		},
 
 		_onDetailMatched: function (oEvent) {

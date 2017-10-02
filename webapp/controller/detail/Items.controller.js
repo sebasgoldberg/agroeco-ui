@@ -21,7 +21,13 @@ sap.ui.define([
 
 		refreshItems: function(){
 			this.loadAndBindModel(
-				`items/?purchase_list=${this._listId}&expand=product_uom.product,product_uom.uom`);
+				`items/?purchase_list=${this._listId}&expand=product_uom.product,product_uom.uom`).then(
+					function(data){
+						var eventBus = sap.ui.getCore().getEventBus();
+						// 1. ChannelName, 2. EventName, 3. the data
+						eventBus.publish("ListChannel", "onItemsLoaded", data);
+					}
+				);
 		},
 
 		onAddItem: function(){
