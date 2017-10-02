@@ -52,7 +52,11 @@ sap.ui.define([
 			this.getRouter().navTo(selectedKey, {
 				listId : listId,
 			}, true /*without history*/);
-		}
+		},
+
+		handleNavButtonPress:function(){
+			this.getRouter().navTo('master');
+		},
 
 	});
 });

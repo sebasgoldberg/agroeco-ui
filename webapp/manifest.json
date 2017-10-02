@@ -79,12 +79,12 @@
 				{
 					"pattern": "",
 					"name": "master",
-					"target": ["master", "detail"]
+					"target": ["detail", "master"]
 				},
 				{
 					"pattern": "detail/{listId}",
 					"name": "detail",
-					"target": ["detail"],
+					"target": ["master", "detail"],
 					"parent": "master"
 				},
 				{

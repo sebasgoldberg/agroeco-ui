@@ -8,7 +8,8 @@
         controllerName="iamsoft.agroeco.controller.Detail">
 
 			<semantic:DetailPage
-					title="{i18n>detail.title}: {/name} ({/date})">
+					title="{i18n>detail.title}: {/name} ({/date})"
+                    showNavButton="{device>/system/phone}" navButtonPress="handleNavButtonPress">
 
                 <IconTabBar
                     expanded="true"

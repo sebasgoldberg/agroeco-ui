@@ -1,7 +1,8 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
-	"jquery.sap.global"
-], function(BaseController, jQuery) {
+	"jquery.sap.global",
+	"sap/ui/Device",	
+], function(BaseController, jQuery, Device) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.Master", {
@@ -40,7 +41,7 @@ sap.ui.define([
 			return this._listId !== undefined;
 		},
 
-		refreshLists: function(selectFirst=true){
+		refreshLists: function(selectFirst=(!Device.system.phone)){
 			var query = {};
 			if (this._searchQuery)
 				query = {
