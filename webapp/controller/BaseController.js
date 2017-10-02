@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-	"sap/ui/core/routing/History"
-], function(Controller, JSONModel, History) {
+	"sap/ui/core/routing/History",
+    "sap/ui/model/BindingMode",
+], function(Controller, JSONModel, History, BindingMode) {
 	"use strict";
 
 	return Controller.extend("iamsoft.agroeco.controller.BaseController", {
@@ -28,7 +29,14 @@ sap.ui.define([
             return this.getBaseUriService() + relativeUri;
         },
 
-        loadAndBindModel: function(relativeUri, modelName=undefined, bindPath='/'){
+        loadAndBindModel: function(relativeUri, options){
+
+            var _options = Object.assign({},{ 
+                modelName:undefined, 
+                bindPath:'/', 
+                sizeLimit:100,
+            }, options || {});
+
             return new Promise(function(resolve, reject){
 
                 var uriService = this.getUriService(relativeUri);
@@ -39,8 +47,9 @@ sap.ui.define([
                         dataType: "json",
                         success: function(data){
                             var oModel = new JSONModel(data);
-                            this.getView().setModel(oModel, modelName);
-                            this.getView().bindElement({path: bindPath, model: modelName})
+                            oModel.setSizeLimit(_options.sizeLimit);
+                            this.getView().setModel(oModel, _options.modelName);
+                            this.getView().bindElement({path: _options.bindPath, model: _options.modelName})
                             resolve(data);
                         }.bind(this)
                     }

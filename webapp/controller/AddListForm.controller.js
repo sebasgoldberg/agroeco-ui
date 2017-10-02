@@ -10,10 +10,6 @@ sap.ui.define([
 
 			BaseController.prototype.onInit.bind(this)();
 
-			this.loadAndBindModel(
-				'product_uom/?expand=product,uom',
-				'products');
-
 			this.getRouter().getRoute("addList").attachPatternMatched(this._onAddListMatched, this);
 				
 		},

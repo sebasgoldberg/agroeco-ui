@@ -1,7 +1,7 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
-    "sap/ui/model/json/JSONModel",
-], function(BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+], function(BaseController, JSONModel, BindingMode) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.AddItemForm", {
@@ -11,8 +11,10 @@ sap.ui.define([
 			BaseController.prototype.onInit.bind(this)();
 
 			this.loadAndBindModel(
-				'product_uom/?expand=product,uom',
-				'products');
+				'product_uom/?expand=product,uom',{ 
+					modelName:'products', 
+					sizeLimit:10000,
+				});
 
 			this.getRouter().getRoute("addItem").attachPatternMatched(this._onAddItemMatched, this);
 				
