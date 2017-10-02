@@ -47,6 +47,18 @@ sap.ui.define([
 						console.error(reason);
 					}.bind(this));
 			}
+		},
+	
+		resolve: function(){
+			return this.post(`lists/${this._listId}/resolutions/`);
+		},
+
+		onResolve: function(){
+			this.resolve().then(function(){
+				this.getRouter().navTo('planning',{
+					listId: this._listId
+				})
+			}.bind(this));
 		}
 
 	});

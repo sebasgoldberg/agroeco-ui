@@ -19,8 +19,9 @@
                     selectedKey="{view>/selectedTabKey}" >
                     <items>
 
+        <!-- sap-icon://activity-items -->
                         <IconTabFilter
-                            icon="sap-icon://activity-items"
+                            icon="sap-icon://cart-4"
                             iconColor=""
                             design="Vertical"
                             count="34"
@@ -43,7 +44,7 @@
                             <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Planning"/> -->
                         </IconTabFilter>
                             
-                        <IconTabSeparator icon="sap-icon://open-command-field" />
+                        <!-- <IconTabSeparator icon="sap-icon://open-command-field" />
 
                         <IconTabFilter
                             icon="sap-icon://cart-4"
@@ -54,15 +55,15 @@
                             key="orders"
                             id="ordersTab" >
                             <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Orders"/>
-                        </IconTabFilter>
+                        </IconTabFilter> -->
 
                     </items>
                 </IconTabBar>
                 
 				<semantic:customFooterContent>
 					<Button icon="sap-icon://less" type="Reject" press="onDeleteList"/>
-					<Button icon="sap-icon://activities" type="Emphasized"/>
-					<Button icon="sap-icon://paper-plane" type="Accept"/>
+					<!-- <Button icon="sap-icon://activities" type="Emphasized"/>
+					<Button icon="sap-icon://paper-plane" type="Accept"/> -->
 				</semantic:customFooterContent>
 
 			</semantic:DetailPage>
