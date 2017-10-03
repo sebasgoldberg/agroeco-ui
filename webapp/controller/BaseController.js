@@ -60,6 +60,27 @@ sap.ui.define([
             }.bind(this));
         },
 
+        get: function(relativeUri){
+            return new Promise(function(resolve, reject){
+
+                var uriService = this.getUriService(relativeUri);
+                
+                jQuery.ajax(uriService,
+                    {
+                        type : "GET",
+                        contentType : "application/json",
+                        dataType : "json",
+                        success : function(data, textStatus, jqXHR) {
+                            resolve(data);
+                        }
+                    }
+                ).fail(function( jqXHR, textStatus, errorThrown ) {
+                    reject(jqXHR)
+                });
+                
+            }.bind(this));
+        },
+
         post: function(relativeUri, data){
             return new Promise(function(resolve, reject){
 

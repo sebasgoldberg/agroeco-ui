@@ -13,7 +13,28 @@ sap.ui.define([
 
 			this.getRouter().getRoute("master").attachMatched(this._onMasterMatched, this);
 			this.getRouter().getRoute("master").attachPatternMatched(this._onMasterPatternMatched, this);
-			
+
+			var eventBus = sap.ui.getCore().getEventBus();
+			eventBus.subscribe("ListChannel", "onListChanged", this.onLisChanged, this);
+
+		},
+
+		onLisChanged: function(channel, event, listId){
+			this.get(`lists/${listId}`).then(
+				function(updatedList){
+					var lists = this.getModel().getObject('/')
+					var updatedLists = lists.map(function(list){
+						if (list.id == listId)
+							return updatedList;
+						return list
+					});
+					this.getModel().setData(updatedLists);
+				}.bind(this),
+				function(reason){
+					console.error(reason);
+				}
+			);
+
 		},
 
 		_onMasterMatched: function(oEvent){
