@@ -11,6 +11,29 @@
 					title="{i18n>detail.title}: {/name} ({/date})"
                     showNavButton="{device>/system/phone}" navButtonPress="handleNavButtonPress">
 
+                <ObjectHeader
+                    binding="{/}"
+                    title="{name}"
+                    number="{total}"
+                    numberUnit="ARS" >
+                    <statuses>
+                        <ObjectStatus text="{=${pending_items} > 0 ? ${pending_items}+' Pendiente(s)': 'Planificado'}"
+								state="{=${pending_items} > 0 ? 'Error' : 'Success'}" />
+                        <!-- <ObjectStatus
+                            text="In Stock"
+                            state="Success" /> -->
+                    </statuses>
+                    <attributes>
+                        <ObjectAttribute text="{date}" />
+                        <!-- <ObjectAttribute text="{Width} x {Depth} x {Height} {DimUnit}" />
+                        <ObjectAttribute text="{Description}" />
+                        <ObjectAttribute
+                            text="www.sap.com"
+                            active="true"
+                            press="handleLinkObjectAttributePress" /> -->
+                    </attributes>
+                </ObjectHeader>
+
                 <IconTabBar
                     expanded="true"
                     id="idIconTabBar"
