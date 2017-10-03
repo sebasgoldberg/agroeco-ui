@@ -19,15 +19,30 @@
 				mode="SingleSelectMaster"
 				selectionChange="onSelectList"
 				>
-				<StandardListItem
-					title="{name}"
-					description="{date}"
-					icon=""
-					iconDensityAware="false"
-					iconInset="false" 
-					type="Active"
-					press=""
-					/>
+				<items>
+					<ObjectListItem
+							title="{name}"
+							type="Active"
+							press=""
+							number="{total}"
+							numberUnit="ARS">
+						<firstStatus>
+							<ObjectStatus
+								text="{=${pending_items} > 0 ? ${pending_items}+' Pendiente(s)': 'Planificado'}"
+								state="{=${pending_items} > 0 ? 'Error' : 'Success'}" />
+						</firstStatus>
+						<attributes>
+							<ObjectAttribute text="{date}" />
+							<!-- <ObjectAttribute text="145 x 140 x 360 cm" /> -->
+						</attributes>
+						<!-- <markers>
+							<ObjectMarker type="Favorite" />
+							<ObjectMarker type="Flagged" />
+						</markers> -->
+					</ObjectListItem>
+				</items>
+				
+
             </List>
             <semantic:customFooterContent>
                 <Button icon="sap-icon://add" type="Emphasized"
