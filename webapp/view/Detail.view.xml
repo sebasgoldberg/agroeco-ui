@@ -24,7 +24,7 @@
                             icon="sap-icon://cart-4"
                             iconColor=""
                             design="Vertical"
-                            count="{/itemsCount}"
+                            count="{/items_count}"
                             text="Items"
                             key="items"
                             id="itemsTab">
@@ -37,7 +37,7 @@
                             icon="sap-icon://activities"
                             iconColor="Critical"
                             design="Vertical"
-                            count="{/resolutionsCount}"
+                            count="{/resolutions_count}"
                             text="Planificación"
                             key="planning"
                             id="planningTab" >

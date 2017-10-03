@@ -37,16 +37,22 @@ sap.ui.define([
 
 		onItemsLoaded: function(channel, event, data){
 			this.getModel().setProperty('/itemsCount', data.length)
+			this.refresh();
 		},
 
 		onResolutionsLoaded: function(channel, event, data){
 			this.getModel().setProperty('/resolutionsCount', data.length)
+			this.refresh();
 		},
 
 		_onDetailMatched: function (oEvent) {
 			this.getModel().setData({});
-			var listId =  oEvent.getParameter("arguments").listId;
-			this.loadAndBindModel(`lists/${listId}/`);
+			this._listId =  oEvent.getParameter("arguments").listId;
+			this.refresh();
+		},
+
+		refresh: function(){
+			this.loadAndBindModel(`lists/${this._listId}/`);			
 		},
 
 		onDeleteList: function(oEvent){
