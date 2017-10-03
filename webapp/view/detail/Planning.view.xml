@@ -48,12 +48,12 @@
 
 			<Column>
 				<header>
-					<Text text="Proveedor" />
+					<Text text="Producto" />
 				</header>
 			</Column>
 			<Column>
 				<header>
-					<Text text="Producto" />
+					<Text text="Proveedor" />
 				</header>
 			</Column>
 			<Column
@@ -80,9 +80,9 @@
 				number="{item/quantity}" unit="{item/product_uom/uom/name}"
 				state="" /> -->
 
-			<ObjectIdentifier title="{vendor_product/vendor/name}" text="" />
 			<ObjectIdentifier title="{vendor_product/name}" 
 				text="(x{vendor_product/quantity} {vendor_product/product_uom/uom/name})" />
+			<Text text="{vendor_product/vendor/name}" />
 			<ObjectNumber
 				number="{quantity}" unit=""
 				state="" />

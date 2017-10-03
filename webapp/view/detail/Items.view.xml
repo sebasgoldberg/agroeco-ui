@@ -25,7 +25,7 @@
                 
                 <Button	text="" press="onAddItem" icon="sap-icon://add"/>
                 <Button	text="" press="onRemoveItem" icon="sap-icon://less"/>
-                <Button	text="" press="onAddResolution" icon="sap-icon://activities"/>
+                <!-- <Button	text="" press="onAddResolution" icon="sap-icon://activities"/> -->
                 <Button	text="" press="onResolve" icon="sap-icon://activate"/>
 
             </Toolbar>
@@ -45,6 +45,16 @@
 					<Text text="Cantidad Requerida" />
 				</header>
 			</Column>
+			<Column>
+				<header>
+					<Text text="Estado" />
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="Exedente" />
+				</header>
+			</Column>
 		</columns>
 		<items>
 			<ColumnListItem>
@@ -53,6 +63,10 @@
 					<ObjectNumber
 						number="{quantity}" unit="{product_uom/uom/name}"
 						state="" />
+					<ObjectStatus text="{=${is_solved}?'Resuelto':'Pendiente'}" state="{=${is_solved}?'Success':'Error'}"/>
+					<ObjectNumber
+						number="{surplus_quantity}" unit="{product_uom/uom/name}"
+						state="{=${surplus_quantity} > 0 ? 'Warning' : 'Success'}" />
 				</cells>
 			</ColumnListItem>
 		</items>
