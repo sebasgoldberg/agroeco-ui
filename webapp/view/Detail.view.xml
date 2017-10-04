@@ -58,7 +58,7 @@
 
                         <IconTabFilter
                             icon="sap-icon://activities"
-                            iconColor="Critical"
+                            iconColor=""
                             design="Vertical"
                             count="{/resolutions_count}"
                             text="Planificación"
@@ -67,18 +67,18 @@
                             <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Planning"/> -->
                         </IconTabFilter>
                             
-                        <!-- <IconTabSeparator icon="sap-icon://open-command-field" />
+                        <IconTabSeparator icon="sap-icon://open-command-field" />
 
                         <IconTabFilter
-                            icon="sap-icon://cart-4"
-                            iconColor="Negative"
+                            icon="sap-icon://shipping-status"
+                            iconColor=""
                             design="Vertical"
-                            count="9"
-                            text="Pedidos"
-                            key="orders"
-                            id="ordersTab" >
-                            <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Orders"/>
-                        </IconTabFilter> -->
+                            count="{/shipping_count}"
+                            text="Envío"
+                            key="shipping"
+                            id="shippingTab" >
+                            <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Orders"/> -->
+                        </IconTabFilter>
 
                     </items>
                 </IconTabBar>

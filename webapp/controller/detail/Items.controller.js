@@ -63,9 +63,12 @@ sap.ui.define([
 
 		onResolve: function(){
 			this.resolve().then(function(){
-				this.getRouter().navTo('planning',{
-					listId: this._listId
-				})
+				// this.getRouter().navTo('planning',{
+				// 	listId: this._listId
+				// })
+				this.refreshItems();
+				var eventBus = sap.ui.getCore().getEventBus();
+				eventBus.publish("ListChannel", "onListChanged", this._listId);
 			}.bind(this));
 		}
 

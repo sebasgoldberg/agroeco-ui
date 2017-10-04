@@ -22,6 +22,7 @@ sap.ui.define([
 
 			eventBus.subscribe("ListChannel", "onItemsLoaded", this.onItemsLoaded, this);
 			eventBus.subscribe("ListChannel", "onResolutionsLoaded", this.onResolutionsLoaded, this);
+			eventBus.subscribe("ListChannel", "onShippingLoaded", this.onShippingLoaded, this);
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
@@ -33,6 +34,10 @@ sap.ui.define([
 				this.getModel("view").setProperty("/selectedTabKey", "planning")
 			}, this);
 
+			this.getRouter().getRoute("shipping").attachMatched(function(){
+				this.getModel("view").setProperty("/selectedTabKey", "shipping")
+			}, this);
+
 		},
 
 		onItemsLoaded: function(channel, event, data){
@@ -42,6 +47,16 @@ sap.ui.define([
 
 		onResolutionsLoaded: function(channel, event, data){
 			this.getModel().setProperty('/resolutionsCount', data.length)
+			this.refresh();
+		},
+
+		onShippingLoaded: function(channel, event, data){
+			var vendors = []
+			data.forEach(function(element) {
+				if (vendors.indexOf(element.vendor.id) < 0)
+					vendors.push(element.vendor.id);
+			}.bind(this));
+			this.getModel().setProperty('/shippingCount', vendors.length)
 			this.refresh();
 		},
 

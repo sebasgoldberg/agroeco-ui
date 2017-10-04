@@ -100,6 +100,12 @@
 					"parent": "detail"
 				},
 				{
+					"pattern": "shipping",
+					"name": "shipping",
+					"target": ["shipping"],
+					"parent": "detail"
+				},
+				{
 					"pattern": "lists/add",
 					"name": "addList",
 					"target": ["addListForm"],
@@ -143,6 +149,14 @@
 					"viewLevel": 3,
 					"controlAggregation": "content",
 					"controlId":"planningTab",
+					"parent": "detail"
+				},
+				"shipping": {
+					"viewPath": "iamsoft.agroeco.view.detail",
+					"viewName": "Shipping",
+					"viewLevel": 3,
+					"controlAggregation": "content",
+					"controlId":"shippingTab",
 					"parent": "detail"
 				},
 				"addListForm": {

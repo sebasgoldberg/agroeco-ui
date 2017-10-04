@@ -2,12 +2,12 @@
     xmlns="sap.m" 
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
-    controllerName="iamsoft.agroeco.controller.detail.Orders"
+    controllerName="iamsoft.agroeco.controller.detail.Shipping"
     >
 
 
 	<Table
-		headerText="Pedidos"
+		headerText="Envío"
 		items="{
 			path:'/',
 			sorter: {
@@ -18,49 +18,41 @@
 
         <headerToolbar>
             <Toolbar>
-                <Title text="Pedidos" level="H2"/>
+                <Title text="Envíos" level="H2"/>
                 <ToolbarSpacer/>
                 
-                <Button	text="" press="onOpenAddPedidoDialog" icon="sap-icon://add"/>
+                <!-- <Button	text="" press="onOpenAddPedidoDialog" icon="sap-icon://add"/> -->
 
             </Toolbar>
         </headerToolbar>
 
 		<columns>
-			<Column mergeDuplicates="true">
+			<Column>
 				<header>
 					<Text text="Proveedor" />
 				</header>
 			</Column>
-			<Column mergeDuplicates="true">
+			<Column >
 				<header>
-					<Text text="Pedido" />
-				</header>
-			</Column>
-			<Column mergeDuplicates="true">
-				<header>
-					<Text text="Fecha Solicitación" />
+					<Text text="Tipo de Envío" />
 				</header>
 			</Column>
 			<Column
-				mergeDuplicates="true"
 				minScreenWidth="Tablet"
 				demandPopin="true"
 				hAlign="Center" >
 				<header>
-					<Text text="Importe a Pagar" />
+					<Text text="Importe" />
 				</header>
 			</Column>
 			
 		</columns>
 		<ColumnListItem>
-			<ObjectIdentifier title="{vendor.name}" text="" />
-			<ObjectIdentifier title="{id}" text="" />
-			<ObjectIdentifier title="{date}" text="" />
+			<ObjectIdentifier title="{vendor/name}" text="" />
+			<Text text="{name}" />
 			<ObjectNumber
 				number="{price}" unit="ARS"
 				state="" />
-
 		</ColumnListItem>
 	</Table>
 
