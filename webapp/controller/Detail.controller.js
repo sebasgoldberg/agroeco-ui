@@ -12,51 +12,27 @@ sap.ui.define([
 
 			var oModel = new JSONModel({
 				selectedTabKey: "",
-				itemsCount: "",
-				resolutionsCount: "",
 			});
 
 			this.getView().setModel(oModel, 'view');
 
 			var eventBus = sap.ui.getCore().getEventBus();
 
-			eventBus.subscribe("ListChannel", "onItemsLoaded", this.onItemsLoaded, this);
-			eventBus.subscribe("ListChannel", "onResolutionsLoaded", this.onResolutionsLoaded, this);
-			eventBus.subscribe("ListChannel", "onShippingLoaded", this.onShippingLoaded, this);
+			eventBus.subscribe("ListChannel", "onItemsLoaded", this.onTabLoaded, this);
+			eventBus.subscribe("ListChannel", "onResolutionsLoaded", this.onTabLoaded, this);
+			eventBus.subscribe("ListChannel", "onShippingLoaded", this.onTabLoaded, this);
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
-			this.getRouter().getRoute("items").attachMatched(function(){
-				this.getModel("view").setProperty("/selectedTabKey", "items")
-			}, this);
-
-			this.getRouter().getRoute("planning").attachMatched(function(){
-				this.getModel("view").setProperty("/selectedTabKey", "planning")
-			}, this);
-
-			this.getRouter().getRoute("shipping").attachMatched(function(){
-				this.getModel("view").setProperty("/selectedTabKey", "shipping")
-			}, this);
-
-		},
-
-		onItemsLoaded: function(channel, event, data){
-			this.getModel().setProperty('/itemsCount', data.length)
-			this.refresh();
-		},
-
-		onResolutionsLoaded: function(channel, event, data){
-			this.getModel().setProperty('/resolutionsCount', data.length)
-			this.refresh();
-		},
-
-		onShippingLoaded: function(channel, event, data){
-			var vendors = []
-			data.forEach(function(element) {
-				if (vendors.indexOf(element.vendor.id) < 0)
-					vendors.push(element.vendor.id);
+			["items", "planning", "shipping"].forEach(function(tabName){
+				this.getRouter().getRoute(tabName).attachMatched(function(){
+					this.getModel("view").setProperty("/selectedTabKey", tabName);
+				}, this);
 			}.bind(this));
-			this.getModel().setProperty('/shippingCount', vendors.length)
+
+		},
+
+		onTabLoaded: function(channel, event, data){
 			this.refresh();
 		},
 
