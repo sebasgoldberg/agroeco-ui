@@ -52,7 +52,7 @@
 			<Text text="{name}" />
 			<ObjectNumber
 				number="{price}" unit="ARS"
-				state="" />
+				state="{=${is_lower_price} > 0 ? 'Success' : 'Warning'}" />
 		</ColumnListItem>
 	</Table>
 
