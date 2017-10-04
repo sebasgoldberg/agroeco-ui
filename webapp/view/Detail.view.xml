@@ -17,8 +17,15 @@
                     number="{total}"
                     numberUnit="ARS" >
                     <statuses>
-                        <ObjectStatus text="{=${pending_items} > 0 ? ${pending_items}+' Pendiente(s)': 'Planificado'}"
-								state="{=${pending_items} > 0 ? 'Error' : 'Success'}" />
+                        <ObjectStatus
+								text="{
+									path: 'pending_items',
+									formatter: '.formatter.listStatusText'
+									}"
+								state="{
+									path: 'pending_items',
+									formatter: '.formatter.listStatusState'
+									}" />
                         <!-- <ObjectStatus
                             text="In Stock"
                             state="Success" /> -->

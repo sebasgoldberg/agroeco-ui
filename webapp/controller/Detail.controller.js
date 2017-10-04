@@ -1,10 +1,13 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-], function(BaseController, JSONModel) {
+	"iamsoft/agroeco/model/formatter",
+], function(BaseController, JSONModel, formatter) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.Detail", {
+
+		formatter: formatter,
 
 		onInit: function () {
 

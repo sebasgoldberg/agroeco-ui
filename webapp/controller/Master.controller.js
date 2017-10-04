@@ -1,11 +1,14 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
 	"jquery.sap.global",
-	"sap/ui/Device",	
-], function(BaseController, jQuery, Device) {
+	"sap/ui/Device",
+	"iamsoft/agroeco/model/formatter",
+], function(BaseController, jQuery, Device, formatter) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.Master", {
+
+		formatter: formatter,
 
 		onInit: function () {
 

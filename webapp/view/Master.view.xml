@@ -28,8 +28,14 @@
 							numberUnit="ARS">
 						<firstStatus>
 							<ObjectStatus
-								text="{=${pending_items} > 0 ? ${pending_items}+' Pendiente(s)': 'Planificado'}"
-								state="{=${pending_items} > 0 ? 'Error' : 'Success'}" />
+								text="{
+									path: 'pending_items',
+									formatter: '.formatter.listStatusText'
+									}"
+								state="{
+									path: 'pending_items',
+									formatter: '.formatter.listStatusState'
+									}" />
 						</firstStatus>
 						<attributes>
 							<ObjectAttribute text="{date}" />
