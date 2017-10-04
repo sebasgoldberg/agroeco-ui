@@ -46,7 +46,6 @@ sap.ui.define([
 		},
 
 		_onDetailMatched: function (oEvent) {
-			this.getModel().setData({});
 			this._listId =  oEvent.getParameter("arguments").listId;
 			this.refresh();
 		},
