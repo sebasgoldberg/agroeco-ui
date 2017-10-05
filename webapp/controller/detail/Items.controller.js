@@ -51,6 +51,8 @@ sap.ui.define([
 			}.bind(this)).then(
 				function(data){
 					this.refreshItems();
+					var eventBus = sap.ui.getCore().getEventBus();
+					eventBus.publish("ListChannel", "onListChanged", this._listId);	
 				}.bind(this),
 				function(reason){
 					console.error(reason);

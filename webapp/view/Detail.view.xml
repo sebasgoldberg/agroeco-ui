@@ -9,7 +9,8 @@
 
 			<semantic:DetailPage
 					title="{i18n>detail.title}: {/name} ({/date})"
-                    showNavButton="{device>/system/phone}" navButtonPress="handleNavButtonPress">
+                    showNavButton="{device>/system/phone}" navButtonPress="handleNavButtonPress"
+                    id="listDetail">
 
                 <ObjectHeader
                     binding="{/}"

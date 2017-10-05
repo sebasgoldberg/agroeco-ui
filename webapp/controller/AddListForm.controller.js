@@ -30,6 +30,8 @@ sap.ui.define([
 			name = this.getView().getModel('form').getProperty('/list/name');
 			this.post('lists/', JSON.stringify({'name': name })).then(
 				function(data){
+					var eventBus = sap.ui.getCore().getEventBus();
+					eventBus.publish("ListChannel", "onListAdded", data['id']);	
 					this.getRouter().navTo('items', {listId: data['id']});
 				}.bind(this),
 				function(reason){

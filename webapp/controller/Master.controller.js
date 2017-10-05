@@ -10,6 +10,8 @@ sap.ui.define([
 
 		formatter: formatter,
 
+		busyControl: "masterList",
+
 		onInit: function () {
 
 			BaseController.prototype.onInit.bind(this)();
@@ -19,10 +21,13 @@ sap.ui.define([
 
 			var eventBus = sap.ui.getCore().getEventBus();
 			eventBus.subscribe("ListChannel", "onListChanged", this.onLisChanged, this);
+			eventBus.subscribe("ListChannel", "onListAdded", this.onLisAdded, this);
+			eventBus.subscribe("ListChannel", "onListDeleted", this.onListDeleted, this);
 
 		},
 
 		onLisChanged: function(channel, event, listId){
+			this.setBusy(true);
 			this.get(`lists/${listId}`).then(
 				function(updatedList){
 					var lists = this.getModel().getObject('/')
@@ -32,6 +37,7 @@ sap.ui.define([
 						return list
 					});
 					this.getModel().setData(updatedLists);
+					this.setBusy(false);					
 				}.bind(this),
 				function(reason){
 					console.error(reason);
@@ -40,20 +46,60 @@ sap.ui.define([
 
 		},
 
+		onLisAdded: function(channel, event, listId){
+			this.setBusy(true);
+			this.get(`lists/${listId}`).then(
+				function(newList){
+					var lists = this.getModel().getObject('/');
+					lists.unshift(newList);
+					this.getModel().setData(lists);
+					this.setBusy(false);					
+				}.bind(this),
+				function(reason){
+					console.error(reason);
+				}
+			);
+
+		},
+
+		onListDeleted: function(channel, event, listId){
+			this.setBusy(true);
+
+			if (this._listId === listId)
+				this._listId = undefined;
+			var lists = this.getModel().getObject('/');
+			var updatedLists = lists.filter(function(list){
+				return list.id !== listId;
+			});
+			this.getModel().setData(updatedLists);
+			this.selectFirst();
+
+			this.setBusy(false);
+		},
+
+		detachRoutes: function(){
+			this.getRouter().getRoute("master").detachMatched(this._onMasterMatched, this);
+			this.getRouter().getRoute("master").detachPatternMatched(this._onMasterPatternMatched, this);
+		},
+
 		_onMasterMatched: function(oEvent){
 
+			this.detachRoutes();
+			
 			this._listId = oEvent.getParameter("arguments").listId;
 			
-			this.refreshLists(false);
+			this.refreshLists();
 
 		},
 
 		_onMasterPatternMatched: function(oEvent){
 
+			this.detachRoutes();
+
 			this._listId = oEvent.getParameter("arguments").listId;
 			
 			this.refreshLists();
-
+			
 		},
 
 		onSearch: function(oEvent) {
@@ -65,7 +111,17 @@ sap.ui.define([
 			return this._listId !== undefined;
 		},
 
-		refreshLists: function(selectFirst=(!Device.system.phone)){
+		selectFirst: function(selectFirst=(!Device.system.phone)){
+			var lists = this.getModel().getObject('/');			
+			if (selectFirst && !this.listSelected() && lists.length>0){
+				this.getRouter().navTo("items",{
+					listId: lists[0].id,
+				});
+			}
+		},
+
+		refreshLists: function(){
+			this.setBusy(true);
 			var query = {};
 			if (this._searchQuery)
 				query = {
@@ -75,11 +131,8 @@ sap.ui.define([
 			query.ordering = '-date,-id';
 			this.loadAndBindModel('lists?' + jQuery.param(query)).then(
 				function(data){
-					if (selectFirst && !this.listSelected() && data.length>0){
-						this.getRouter().navTo("items",{
-							listId: data[0].id,
-						});
-					}
+					this.selectFirst();
+					this.setBusy(false);
 				}.bind(this),
 				function(reason){
 					console.error(reason);

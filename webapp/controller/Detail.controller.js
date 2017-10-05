@@ -7,11 +7,15 @@ sap.ui.define([
 
 	return BaseController.extend("iamsoft.agroeco.controller.Detail", {
 
+		busyControl: "listDetail",
+
 		formatter: formatter,
 
 		onInit: function () {
 
 			BaseController.prototype.onInit.bind(this)();
+
+			this.setBusy(false);
 
 			var oModel = new JSONModel({
 				selectedTabKey: "",
@@ -45,14 +49,21 @@ sap.ui.define([
 		},
 
 		refresh: function(){
-			this.loadAndBindModel(`lists/${this._listId}/`);			
+			this.setBusy(true);
+			this.loadAndBindModel(`lists/${this._listId}/`).then(function(data){
+				this.setBusy(false);
+			}.bind(this));
 		},
 
 		onDeleteList: function(oEvent){
+			this.setBusy(true);
 			var listId = this.getModel().getProperty('/id');
 			this.delete(`lists/${listId}/`).then(
 				function(data){
+					var eventBus = sap.ui.getCore().getEventBus();
 					this.getRouter().navTo('master');
+					eventBus.publish("ListChannel", "onListDeleted", listId);
+					this.setBusy(false);
 				}.bind(this),
 				function(reason){
 					console.error(reason);

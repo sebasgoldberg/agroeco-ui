@@ -35,6 +35,8 @@ sap.ui.define([
 			var data = this.getModel('form').getData();
 			this.post('items/', JSON.stringify(data)).then(
 				function(data){
+					var eventBus = sap.ui.getCore().getEventBus();
+					eventBus.publish("ListChannel", "onListChanged", data['purchase_list']);	
 					this.getRouter().navTo('items', {listId: data['purchase_list']});
 				}.bind(this),
 				function(reason){

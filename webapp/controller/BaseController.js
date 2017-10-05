@@ -152,5 +152,10 @@ sap.ui.define([
 			})
 		},
 
+		setBusy: function(bIsBusy){
+			var oControl = this.getView().byId(this.busyControl);
+			oControl.setBusy(bIsBusy);
+		},
+
 	});
 });

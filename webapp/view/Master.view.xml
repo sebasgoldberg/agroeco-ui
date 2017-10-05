@@ -7,7 +7,9 @@
 		displayBlock="true"
         controllerName='iamsoft.agroeco.controller.Master'>
 
-        <semantic:MasterPage title="{i18n>master.title}">
+        <semantic:MasterPage 
+			title="{i18n>master.title}"
+			id="masterList">
 			<Toolbar>
 				<SearchField
 					search="onSearch"
