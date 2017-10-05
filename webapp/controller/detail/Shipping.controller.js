@@ -1,10 +1,13 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
-], function(BaseController) {
+	"iamsoft/agroeco/model/formatter",
+], function(BaseController, formatter) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.detail.Shipping", {
 
+		formatter: formatter,
+		
 		onInit: function () {
 
 			BaseController.prototype.onInit.bind(this)();

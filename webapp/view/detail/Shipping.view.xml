@@ -59,7 +59,10 @@
 					} 
 				}"
 				unit="ARS"
-				state="{=${is_lower_price} > 0 ? 'Success' : 'Warning'}" />
+				state="{
+					path: 'is_lower_price',
+					formatter: '.formatter.shippingPriceState'
+				}" />
 		</ColumnListItem>
 	</Table>
 

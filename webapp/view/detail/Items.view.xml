@@ -67,14 +67,25 @@
 						}"
 						unit="{product_uom/uom/name}"
 						state="" />
-					<ObjectStatus text="{=${is_solved}?'Resuelto':'Pendiente'}" state="{=${is_solved}?'Success':'Error'}"/>
+					<ObjectStatus 
+						text="{
+							path: 'is_solved',
+							formatter: '.formatter.itemStatusText'
+						}"
+						state="{
+							path: 'is_solved',
+							formatter: '.formatter.itemStatusState'
+						}"/>
 					<ObjectNumber
 						number="{
 							path: 'surplus_quantity',
 							type: 'sap.ui.model.type.Float'
 						}"
 						unit="{product_uom/uom/name}"
-						state="{=${surplus_quantity} > 0 ? 'Warning' : 'Success'}" />
+						state="{
+							parts: [ { path: 'quantity' }, { path: 'surplus_quantity' } ],
+							formatter: '.formatter.itemSurplusQuantityState'
+						}" />
 				</cells>
 			</ColumnListItem>
 		</items>
