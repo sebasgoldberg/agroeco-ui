@@ -51,7 +51,14 @@
 			<ObjectIdentifier title="{vendor/name}" text="" />
 			<Text text="{name}" />
 			<ObjectNumber
-				number="{price}" unit="ARS"
+				number="{
+					parts: [{path: 'price'}, {path: ''}],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {
+						showMeasure: false 
+					} 
+				}"
+				unit="ARS"
 				state="{=${is_lower_price} > 0 ? 'Success' : 'Warning'}" />
 		</ColumnListItem>
 	</Table>

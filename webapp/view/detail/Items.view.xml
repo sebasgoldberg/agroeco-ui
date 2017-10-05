@@ -61,11 +61,19 @@
 				<cells>
 					<ObjectIdentifier title="{product_uom/product/title}" text="" />
 					<ObjectNumber
-						number="{quantity}" unit="{product_uom/uom/name}"
+						number="{
+							path: 'quantity',
+							type: 'sap.ui.model.type.Float'
+						}"
+						unit="{product_uom/uom/name}"
 						state="" />
 					<ObjectStatus text="{=${is_solved}?'Resuelto':'Pendiente'}" state="{=${is_solved}?'Success':'Error'}"/>
 					<ObjectNumber
-						number="{surplus_quantity}" unit="{product_uom/uom/name}"
+						number="{
+							path: 'surplus_quantity',
+							type: 'sap.ui.model.type.Float'
+						}"
+						unit="{product_uom/uom/name}"
 						state="{=${surplus_quantity} > 0 ? 'Warning' : 'Success'}" />
 				</cells>
 			</ColumnListItem>

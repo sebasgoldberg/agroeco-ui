@@ -14,7 +14,13 @@
                 <ObjectHeader
                     binding="{/}"
                     title="{name}"
-                    number="{total}"
+                    number="{
+						parts: [{path: 'total'}, {path: ''}],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                            showMeasure: false 
+                        } 
+                    }"
                     numberUnit="ARS" >
                     <statuses>
                         <ObjectStatus

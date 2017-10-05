@@ -84,10 +84,21 @@
 				text="(x{vendor_product/quantity} {vendor_product/product_uom/uom/name})" />
 			<Text text="{vendor_product/vendor/name}" />
 			<ObjectNumber
-				number="{quantity}" unit=""
+				number="{
+					path: 'quantity',
+					type: 'sap.ui.model.type.Float'
+				}"
+				unit=""
 				state="" />
 			<ObjectNumber
-				number="{price}" unit="ARS"
+				number="{
+					parts: [{path: 'price'}, {path: ''}],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {
+						showMeasure: false 
+					} 
+				}"
+				unit="ARS"
 				state="" />
 
 		</ColumnListItem>
