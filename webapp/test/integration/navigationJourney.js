@@ -63,6 +63,17 @@ sap.ui.define([
 			.and.iShouldNotSeeTheListsDetail();
 	});
 
+	opaTest("When add list cancel button is pressed, should navigate to master and display the details of the first list.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheAppPage.iPressTheAddListCancelButton();
+
+		// Assertions
+		Then.onTheAppPage.iShouldSeeTheMaster()
+			.and.iShouldSeeTheFirstListsDetails();
+	});
+
 	opaTest("Should exit my app", function (Given, When, Then) {
 
 		Then.onTheAppPage.allLooksOK().and.iTeardownMyAppFrame();
