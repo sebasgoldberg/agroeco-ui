@@ -76,7 +76,7 @@ sap.ui.define([
 			var selectedKey = oEvent.getParameter("selectedKey");
 			this.getRouter().navTo(selectedKey, {
 				listId : listId,
-			}, true /*without history*/);
+			});
 		},
 
 		handleNavButtonPress:function(){

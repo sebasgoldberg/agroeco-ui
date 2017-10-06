@@ -88,7 +88,7 @@ sap.ui.define([
 			
 			this._listId = oEvent.getParameter("arguments").listId;
 			
-			this.refreshLists();
+			this.refreshLists(false);
 
 		},
 
@@ -120,7 +120,7 @@ sap.ui.define([
 			}
 		},
 
-		refreshLists: function(){
+		refreshLists: function(selectFirst=True){
 			this.setBusy(true);
 			var query = {};
 			if (this._searchQuery)
@@ -131,7 +131,8 @@ sap.ui.define([
 			query.ordering = '-date,-id';
 			this.loadAndBindModel('lists?' + jQuery.param(query)).then(
 				function(data){
-					this.selectFirst();
+					if (selectFirst)
+						this.selectFirst();
 					this.setBusy(false);
 				}.bind(this),
 				function(reason){
@@ -150,7 +151,7 @@ sap.ui.define([
 			this.getRouter().navTo("items", {
 				// listId : oList.getBindingContext().getProperty("id")
 				listId: oItem.getBindingContext().getProperty("id")
-			}, true);
+			});
 		},
 
 	});

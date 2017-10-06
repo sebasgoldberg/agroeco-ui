@@ -14,7 +14,7 @@
             showNavButton="true"
 		    navButtonPress="onNavBack">
 
-            <f:Form editable="true">
+            <f:Form editable="true" id="addListForm">
                 <f:layout>
                     <f:ResponsiveGridLayout
                         labelSpanXL="3"
@@ -36,7 +36,7 @@
 						<f:FormElement label="Nombre">
 							<f:fields>
                                 <Input
-                                    id="nombreInput"
+                                    id="listNameInput"
                                     type="Text"
                                     placeholder="Indique un nombre ..."
                                     value='{form>/list/name}'
