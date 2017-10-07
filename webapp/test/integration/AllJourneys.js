@@ -9,7 +9,10 @@ sap.ui.require([
 	"sap/ui/test/Opa5",
 	"iamsoft/agroeco/test/integration/pages/Common",
 	"sap/ui/test/opaQunit",
-	"iamsoft/agroeco/test/integration/pages/App"
+	"iamsoft/agroeco/test/integration/pages/App",
+	"iamsoft/agroeco/test/integration/pages/Master",
+	"iamsoft/agroeco/test/integration/pages/Detail",
+	"iamsoft/agroeco/test/integration/pages/AddListForm",
 ], function (Opa5, Common) {
 	"use strict";
 	Opa5.extendConfig({
@@ -18,7 +21,8 @@ sap.ui.require([
 	});
 
 	sap.ui.require([
-		"iamsoft/agroeco/test/integration/navigationJourney"
+		"iamsoft/agroeco/test/integration/navigationJourney",
+		"iamsoft/agroeco/test/integration/uriJourney",
 	], function () {
 		QUnit.start();
 	});

@@ -5,32 +5,32 @@ sap.ui.define([
 ], function (opaTest) {
 	"use strict";
 
-	QUnit.module("Navigation Journey");
+	QUnit.module("Uri Journey");
 
-	opaTest("Should see the initial page of the app", function (Given, When, Then) {
+	opaTest("Should see the add list page of the app", function (Given, When, Then) {
 		// Arrangements
-		Given.iStartTheApp();
+		Given.iStartTheApp({
+			hash:"/lists/add"
+		});
 
 		//Actions
 		When.onTheAppPage.iLookAtTheScreen();
+
 		// Assertions
 		Then.onTheAppPage.iShouldSeeTheApp();
+		Then.onTheAddListFormPage.iShouldSeeTheAddListForm();
 
 	});
 
-	opaTest("Should see the add list button on the master page", function (Given, When, Then) {
+	opaTest("When I wait some seconds, I should see the add list page of the app", function (Given, When, Then) {
+		// Arrangements
+		Given.iWaitSomeSeconds(5);
+
 		//Actions
 		When.onTheAppPage.iLookAtTheScreen();
-		// Assertions
-		Then.onTheMasterPage.iShouldSeeTheAddListButton();
-	});
 
-	opaTest("Should be displayed the add list form.", function (Given, When, Then) {
-		//Actions
-		When.onTheMasterPage.iPressTheAddListButton();
 		// Assertions
-		Then.onTheAddListFormPage.iShouldSeeTheAddListForm().and.iShouldSeeTheListNameInput();
-
+		Then.onTheAddListFormPage.iShouldSeeTheAddListForm();
 	});
 
 	opaTest("When add list cancel button is pressed, should navigate to master and display the details of the first list.", function (Given, When, Then) {
@@ -49,5 +49,6 @@ sap.ui.define([
 		Then.onTheAppPage.allLooksOK().and.iTeardownMyAppFrame();
 
 	});
+
 
 });

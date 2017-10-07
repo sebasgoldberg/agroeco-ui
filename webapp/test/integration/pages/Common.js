@@ -27,7 +27,31 @@ sap.ui.define([
 
 		iLookAtTheScreen : function () {
 			return this;
+		},
+
+		allLooksOK: function(){
+			return this.waitFor({
+				success: function(){
+					Opa5.assert.ok(true);
+				}
+			});
+		},
+
+		iWaitSomeSeconds: function(iSeconds){
+			var pendingSeconds = iSeconds;
+			return this.waitFor({
+				timeout: iSeconds+10,
+				pollingInterval: 1000,
+				check: function(){
+					pendingSeconds--;
+					return pendingSeconds <= 0;
+				},
+				success: function(){
+					Opa5.assert.ok(true);
+				}
+			});
 		}
+
 
 	});
 

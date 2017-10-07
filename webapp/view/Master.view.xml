@@ -9,7 +9,7 @@
 
         <semantic:MasterPage 
 			title="{i18n>master.title}"
-			id="masterList">
+			id="masterPage">
 			<Toolbar>
 				<SearchField
 					search="onSearch"

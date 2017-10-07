@@ -7,7 +7,7 @@ sap.ui.define([
 
 	return BaseController.extend("iamsoft.agroeco.controller.Detail", {
 
-		busyControl: "listDetail",
+		busyControl: "detailPage",
 
 		formatter: formatter,
 

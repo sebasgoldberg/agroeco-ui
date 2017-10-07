@@ -10,7 +10,7 @@ sap.ui.define([
 
 		formatter: formatter,
 
-		busyControl: "masterList",
+		busyControl: "masterPage",
 
 		onInit: function () {
 

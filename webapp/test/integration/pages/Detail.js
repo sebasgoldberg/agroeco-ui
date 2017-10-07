@@ -4,24 +4,25 @@ sap.ui.define([
 	'sap/ui/test/actions/Press',
 ], function(Opa5, Common, Press) {
 	"use strict";
-	var sViewName = "App";
+	var sViewName = "Detail";
 	Opa5.createPageObjects({
-		onTheAppPage: {
+		onTheDetailPage: {
 			baseClass : Common,
 
 			actions: {
+
 			},
 
 			assertions: {
 
-				iShouldSeeTheApp: function () {
+				iShouldSeeTheDetailPage: function () {
 					return this.waitFor({
-						id: "app",
+						id: "detailPage",
 						viewName: sViewName,
 						success: function () {
-							Opa5.assert.ok(true, "The App view is displayed");
+							Opa5.assert.ok(true, "The Detail Page is displayed");
 						},
-						errorMessage: "Did not find the App view"
+						errorMessage: "Did not find the Detail Page"
 					});
 				},
 
