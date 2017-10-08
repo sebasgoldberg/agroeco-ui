@@ -50,8 +50,7 @@ sap.ui.define([
 					Opa5.assert.ok(true);
 				}
 			});
-		}
-
+		},
 
 	});
 

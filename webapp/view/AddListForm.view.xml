@@ -12,7 +12,8 @@
     <semantic:DetailPage
             title="Crear Lista de Compra"
             showNavButton="true"
-		    navButtonPress="onNavBack">
+		    navButtonPress="onNavBack"
+            id="addListFormPage">
 
             <f:Form editable="true" id="addListForm">
                 <f:layout>

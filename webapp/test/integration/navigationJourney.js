@@ -41,9 +41,57 @@ sap.ui.define([
 
 		// Assertions
 		Then.onTheMasterPage.iShouldSeeTheMasterPage();
-		Then.onTheDetailPage.iShouldSeeTheDetailPage();
 	});
 
+	opaTest("Should be displayed the add list form.", function (Given, When, Then) {
+		//Actions
+		When.onTheMasterPage.iPressTheAddListButton();
+		// Assertions
+		Then.onTheAddListFormPage.iShouldSeeTheAddListForm().and.iShouldSeeTheListNameInput();
+
+	});
+
+	opaTest("When add list back button is pressed, should navigate to master.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheAddListFormPage.iPressTheNavButton();
+
+		// Assertions
+		Then.onTheMasterPage.iShouldSeeTheMasterPage();
+	});
+
+	opaTest("When I select the first list, the details should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheMasterPage.iSelectTheFirstList();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onTheItemsPage.iShouldSeeTheItemsPage();
+	});
+	
+	/*
+	Navigate between all the possible views:
+	App --> Master
+	Master --[push(addListButton)]--> AddListForm
+	AddListForm --[push(cancelButton)]--> Master
+	Master --[push(addListButton)]--> AddListForm
+	AddListForm --[push(backButton)]--> Master
+	Master --[push(firstList())]--> Detail, Items
+
+	Detail -->[push(planningTab)]--> Planning
+	Detail -->[push(shippingTab)]--> Shipping
+	Detail -->[push(itemsTab)]--> Items
+	Detail -->[push(backButton)]--> Shipping
+	Detail -->[push(backButton)]--> Planning
+	Detail -->[push(backButton)]--> Items
+	Items -->[push(addItemButton)]--> AddItemForm
+	AddItemForm --[push(cancelButton)]--> Items
+	Items -->[push(addItemButton)]--> AddItemForm
+	AddItemForm --[push(backButton)]--> Items
+	*/
 	opaTest("Should exit my app", function (Given, When, Then) {
 
 		Then.onTheAppPage.allLooksOK().and.iTeardownMyAppFrame();

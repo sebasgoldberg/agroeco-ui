@@ -20,9 +20,31 @@ sap.ui.define([
 					});
 				},
 
+				iPressTheNavButton: function(){
+					return this.waitFor({
+						id: "addListFormPage",
+						viewName: sViewName,
+						success: function(oPage){
+							oPage.$("navButton").trigger("tap");
+						},
+						errorMessage: "The Navigation Button was not found on rhe Add List Form Page."
+					});
+				},
+		
 			},
 
 			assertions: {
+
+				iShouldSeeTheAddListFormPage: function(){
+					return this.waitFor({
+						id: "addListFormPage",
+						viewName: sViewName,
+						success: function () {
+							Opa5.assert.ok(true, "The Add List Form Page is displayed");
+						},
+						errorMessage: "Did not find the Add List Form Page"
+					});					
+				},
 
 				iShouldSeeTheAddListForm: function(){
 					return this.waitFor({
