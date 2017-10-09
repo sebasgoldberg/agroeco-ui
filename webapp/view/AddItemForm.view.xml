@@ -12,7 +12,8 @@
     <semantic:DetailPage
             title="Agregar Item a Lista {list>name}"
             showNavButton="true"
-		    navButtonPress="onNavBack">
+		    navButtonPress="onNavBack"
+            id="addItemFormPage">
 
             <f:Form editable="true">
                 <f:layout>
@@ -64,8 +65,8 @@
             </f:Form>
 
         <semantic:customFooterContent>
-            <Button text="Adicionar" type="Emphasized" press="onAdd"></Button>
-            <Button text="Cancelar" type="Rejects" press="onCancel"></Button>
+            <Button text="Adicionar" type="Emphasized" press="onAdd" id="addButton"></Button>
+            <Button text="Cancelar" type="Rejects" press="onCancel" id="cancelButton"></Button>
         </semantic:customFooterContent>
 
     </semantic:DetailPage>
