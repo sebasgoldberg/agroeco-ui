@@ -15,54 +15,74 @@
 		    navButtonPress="onNavBack"
             id="addItemFormPage">
 
-            <f:Form editable="true">
-                <f:layout>
-                    <f:ResponsiveGridLayout
-                        labelSpanXL="3"
-                        labelSpanL="3"
-                        labelSpanM="3"
-                        labelSpanS="12"
-                        adjustLabelSpan="false"
-                        emptySpanXL="4"
-                        emptySpanL="4"
-                        emptySpanM="4"
-                        emptySpanS="0"
-                        columnsXL="1"
-                        columnsL="1"
-                        columnsM="1"
-                        singleContainerFullSize="false" />
-                </f:layout>
-				<f:FormContainer>
-					<f:formElements>
-						<f:FormElement label="Producto">
-							<f:fields>
-                                <Input
-                                    id="productInput"
-                                    type="Text"
-                                    textFormatMode="KeyValue"
-                                    placeholder="Indique un producto ..."
-                                    showSuggestion="true"
-                                    suggestionItems="{products>/}"
-                                    selectedKey="{form>product_uom}" >
-                                    <suggestionItems>
-                                        <core:ListItem key="{products>id}" text="{products>product/title} [{products>uom/name}]"/>
-                                    </suggestionItems>
-                                </Input>
-							</f:fields>
-						</f:FormElement>
+        <f:Form editable="true">
+            <f:layout>
+                <f:ResponsiveGridLayout
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false" />
+            </f:layout>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement label="Proveedor">
+                        <f:fields>
+                            <Select
+                                id="vendorsSelect"
+                                change="onChangeVendor"
+                                forceSelection="false"
+                                selectedKey="{form>/vendor}"
+                                items="{
+                                    path: 'vendors>/',
+                                    sorter: { path: 'name' }
+                                }">
+                                <core:Item key="{vendors>id}" text="{vendors>name}" />
+                            </Select>
+                        </f:fields>
+                    </f:FormElement>
 
-						<f:FormElement label="Cantidad">
-							<f:fields>
-                                <Input
-                                    value="{form>quantity}"
-                                    placeholder="Indique la cantidad ..." >
-                                </Input>
-							</f:fields>
-						</f:FormElement>
+                    <f:FormElement label="Producto">
+                        <f:fields>
+                            <SearchField width="100%" 
+                                value="{form>/search}"
+                                liveChange="onSearchProduct"
+                                />
+                        </f:fields>
+                    </f:FormElement>
 
-					</f:formElements>
-				</f:FormContainer>
-            </f:Form>
+                </f:formElements>
+            </f:FormContainer>
+        </f:Form>
+
+        <List
+            id="productsList"
+            items="{products>/}"
+            selectionChange="onVendorChange"
+            mode="MultiSelect"
+            includeItemInSelection="true" >
+            <infoToolbar>
+                <Toolbar
+                    visible="false"
+                    id="idInfoToolbar" >
+                    <Label id="idFilterLabel" />
+                </Toolbar>
+            </infoToolbar>
+            <items>
+                <StandardListItem
+                    title="{products>product/title}"
+                    description="{products>uom/name}"
+                    />
+            </items>
+        </List>
 
         <semantic:customFooterContent>
             <Button text="Adicionar" type="Emphasized" press="onAdd" id="addButton"></Button>

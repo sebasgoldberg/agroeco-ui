@@ -46,6 +46,19 @@ sap.ui.define([
 					});					
 				},
 
+				iShouldSeeTheVendorSelect: function(){
+					return this.iShouldSeeThe('vendorsSelect');
+				},
+
+				
+				iShouldSeeTheSearchInput: function(){
+					return this.iShouldSeeThe('searchInput');
+				},
+
+				iShouldSeeTheProductsList: function(){
+					return this.iShouldSeeThe('productsList');
+				},
+
 			}
 
 		}

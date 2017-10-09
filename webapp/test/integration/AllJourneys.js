@@ -27,6 +27,7 @@ sap.ui.require([
 	sap.ui.require([
 		"iamsoft/agroeco/test/integration/navigationJourney",
 		"iamsoft/agroeco/test/integration/uriJourney",
+		"iamsoft/agroeco/test/integration/journeys/addItemJourney",
 	], function () {
 		QUnit.start();
 	});

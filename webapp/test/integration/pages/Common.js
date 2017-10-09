@@ -52,6 +52,17 @@ sap.ui.define([
 			});
 		},
 
+		iShouldSeeThe: function(controlId){
+			return this.waitFor({
+				id: controlId,
+				viewName: this.sViewName,
+				success: function () {
+					Opa5.assert.ok(true, "The "+controlId+" is displayed".);
+				},
+				errorMessage: "Did not find the "+controlId
+			});					
+		},
+
 	});
 
 });
