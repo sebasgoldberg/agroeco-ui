@@ -13,6 +13,7 @@ sap.ui.require([
 	"iamsoft/agroeco/test/integration/pages/Master",
 	"iamsoft/agroeco/test/integration/pages/Detail",
 	"iamsoft/agroeco/test/integration/pages/AddListForm",
+	"iamsoft/agroeco/test/integration/pages/detail/Items",
 ], function (Opa5, Common) {
 	"use strict";
 	Opa5.extendConfig({

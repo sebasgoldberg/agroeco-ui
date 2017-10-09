@@ -69,7 +69,7 @@ sap.ui.define([
 
 		// Assertions
 		Then.onTheDetailPage.iShouldSeeTheDetailPage();
-		Then.onTheItemsPage.iShouldSeeTheItemsPage();
+		Then.onTheItemsPage.iShouldSeeTheItemsTable();
 	});
 	
 	/*

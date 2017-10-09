@@ -2,7 +2,8 @@ sap.ui.define([
 	"sap/ui/test/Opa5",
 	"iamsoft/agroeco/test/integration/pages/Common",
 	'sap/ui/test/actions/Press',
-], function(Opa5, Common, Press) {
+	'sap/ui/test/matchers/BindingPath',
+], function(Opa5, Common, Press, BindingPath) {
 	"use strict";
 	var sViewName = "Master";
 	Opa5.createPageObjects({
@@ -17,6 +18,18 @@ sap.ui.define([
 						viewName: sViewName,
 						actions: new Press(),
 						errorMessage: "The Add List Button does not have a trigger."
+					});
+				},
+
+				iSelectTheFirstList: function () {
+					return this.waitFor({
+						controlType: "sap.m.ObjectListItem",
+						viewName: sViewName,
+						matchers:  new BindingPath({
+							path: "/0"
+						}),
+						actions: new Press(),
+						errorMessage: "Can not find the first list."
 					});
 				},
 

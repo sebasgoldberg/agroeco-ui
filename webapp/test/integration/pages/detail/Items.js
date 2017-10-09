@@ -4,9 +4,9 @@ sap.ui.define([
 	'sap/ui/test/actions/Press',
 ], function(Opa5, Common, Press) {
 	"use strict";
-	var sViewName = "Items";
+	var sViewName = "detail.Items";
 	Opa5.createPageObjects({
-		onTheDetailPage: {
+		onTheItemsPage: {
 			baseClass : Common,
 
 			actions: {
@@ -15,14 +15,14 @@ sap.ui.define([
 
 			assertions: {
 
-				iShouldSeeTheItemsPage: function () {
+				iShouldSeeTheItemsTable: function () {
 					return this.waitFor({
-						id: "itemsPage",
+						id: "itemsTable",
 						viewName: sViewName,
 						success: function () {
-							Opa5.assert.ok(true, "The Items Page is displayed");
+							Opa5.assert.ok(true, "The Items Table is displayed");
 						},
-						errorMessage: "Did not find the Items Page"
+						errorMessage: "Did not find the Items Table"
 					});
 				},
 
