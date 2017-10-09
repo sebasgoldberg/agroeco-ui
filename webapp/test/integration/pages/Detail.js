@@ -11,6 +11,37 @@ sap.ui.define([
 
 			actions: {
 
+				iPressTheItemsTab: function(){
+					return this.waitFor({
+						id: "itemsTab",
+						viewName: sViewName,
+						actions: new Press(),
+						errorMessage: "The Items Tab does not have a trigger."
+					});
+				},
+
+				iPressThePlanningTab: function(){
+					return this.waitFor({
+						id: "planningTab",
+						viewName: sViewName,
+						actions: new Press(),
+						errorMessage: "The Planning Tab does not have a trigger."
+					});
+				},
+
+				iPressTheShippingTab: function(){
+					return this.waitFor({
+						id: "shippingTab",
+						viewName: sViewName,
+						actions: new Press(),
+						errorMessage: "The Shipping Tab does not have a trigger."
+					});
+				},
+
+				iPressTheBackButton: function(){
+					return Opa5.getWindow().history.back();
+				},
+
 			},
 
 			assertions: {

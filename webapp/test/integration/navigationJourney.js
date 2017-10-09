@@ -71,7 +71,73 @@ sap.ui.define([
 		Then.onTheDetailPage.iShouldSeeTheDetailPage();
 		Then.onTheItemsPage.iShouldSeeTheItemsTable();
 	});
-	
+
+	opaTest("When I push the planning tab, the planning should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressThePlanningTab();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onThePlanningPage.iShouldSeeThePlanningTable();
+	});
+
+	opaTest("When I push the shipping tab, the shipping should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressTheShippingTab();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onTheShippingPage.iShouldSeeTheShippingTable();
+	});
+
+	opaTest("When I push the items tab, the items should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressTheItemsTab();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onTheItemsPage.iShouldSeeTheItemsTable();
+	});
+
+	opaTest("When I back button, the shipping should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressTheBackButton();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onTheShippingPage.iShouldSeeTheShippingTable();
+	});
+
+	opaTest("When I back button, the planning should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressTheBackButton();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onThePlanningPage.iShouldSeeThePlanningTable();
+	});
+
+	opaTest("When I back button, the items should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressTheBackButton();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onTheItemsPage.iShouldSeeTheItemsTable();
+	});
+
 	/*
 	Navigate between all the possible views:
 	App --> Master
@@ -80,13 +146,13 @@ sap.ui.define([
 	Master --[push(addListButton)]--> AddListForm
 	AddListForm --[push(backButton)]--> Master
 	Master --[push(firstList())]--> Detail, Items
-
 	Detail -->[push(planningTab)]--> Planning
 	Detail -->[push(shippingTab)]--> Shipping
 	Detail -->[push(itemsTab)]--> Items
 	Detail -->[push(backButton)]--> Shipping
 	Detail -->[push(backButton)]--> Planning
 	Detail -->[push(backButton)]--> Items
+
 	Items -->[push(addItemButton)]--> AddItemForm
 	AddItemForm --[push(cancelButton)]--> Items
 	Items -->[push(addItemButton)]--> AddItemForm
