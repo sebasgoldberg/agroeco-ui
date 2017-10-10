@@ -75,7 +75,7 @@ sap.ui.define([
 					return this.post('items/', JSON.stringify({
 						product_uom: product.id,
 						quantity: 0,
-						puchase_list: Number(this._listId),
+						purchase_list: Number(this._listId),
 					}));
 				}.bind(this));
 
