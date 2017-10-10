@@ -60,13 +60,24 @@
 			<ColumnListItem>
 				<cells>
 					<ObjectIdentifier title="{product_uom/product/title}" text="" />
-					<ObjectNumber
+					<Input 
+						submit="onSubmitQuantity"
+						editable="true"
+						value="{
+							parts: [{path: 'quantity'}, {path: 'product_uom/uom/name'}],
+							type: 'sap.ui.model.type.Currency',
+							formatOptions: {
+								showMeasure: true
+							} 
+						}" />
+					<!-- <ObjectNumber
+						editable="true"
 						number="{
 							path: 'quantity',
 							type: 'sap.ui.model.type.Float'
 						}"
 						unit="{product_uom/uom/name}"
-						state="" />
+						state="" /> -->
 					<ObjectStatus 
 						text="{
 							path: 'is_solved',

@@ -81,17 +81,17 @@ sap.ui.define([
             }.bind(this));
         },
 
-        post: function(relativeUri, data){
+        _pp: function(relativeUri, data, type){
             return new Promise(function(resolve, reject){
 
                 var uriService = this.getUriService(relativeUri);
                 
                 jQuery.ajax(uriService,
                     {
-                        type : "POST",
+                        type : type,
                         contentType : "application/json",
                         dataType : "json",
-                        data: data,
+                        data: JSON.stringify(data),
                         success : function(data,textStatus, jqXHR) {
                             resolve(data);
                         }
@@ -101,6 +101,18 @@ sap.ui.define([
                 });
                 
             }.bind(this));
+        },
+
+        post: function(relativeUri, data){
+            return this._pp(relativeUri, data, "POST");
+        },
+
+        put: function(relativeUri, data){
+            return this._pp(relativeUri, data, "PUT");
+        },
+
+        patch: function(relativeUri, data){
+            return this._pp(relativeUri, data, "PATCH");
         },
 
         delete: function(relativeUri){

@@ -28,7 +28,7 @@ sap.ui.define([
 
 		onAdd: function(){
 			name = this.getView().getModel('form').getProperty('/list/name');
-			this.post('lists/', JSON.stringify({'name': name })).then(
+			this.post('lists/', {'name': name }).then(
 				function(data){
 					var eventBus = sap.ui.getCore().getEventBus();
 					eventBus.publish("ListChannel", "onListAdded", data['id']);	

@@ -35,7 +35,7 @@ sap.ui.define([
 
 		onAdd: function(){
 			var data = this.getModel('form').getData();
-			this.post('resolutions/', JSON.stringify(data)).then(
+			this.post('resolutions/', data).then(
 				function(data){
 					this.getRouter().navTo('planning', {listId: this._listId});
 				}.bind(this),

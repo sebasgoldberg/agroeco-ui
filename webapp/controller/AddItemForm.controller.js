@@ -72,11 +72,11 @@ sap.ui.define([
 
 				var promises = aContexts.map(function(oContext) {
 					let product = oContext.getObject()
-					return this.post('items/', JSON.stringify({
+					return this.post('items/', {
 						product_uom: product.id,
 						quantity: 0,
 						purchase_list: Number(this._listId),
-					}));
+					});
 				}.bind(this));
 
 				return Promise.all(promises).then(

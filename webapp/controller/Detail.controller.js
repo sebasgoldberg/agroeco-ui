@@ -28,6 +28,7 @@ sap.ui.define([
 			eventBus.subscribe("ListChannel", "onItemsLoaded", this.onTabLoaded, this);
 			eventBus.subscribe("ListChannel", "onResolutionsLoaded", this.onTabLoaded, this);
 			eventBus.subscribe("ListChannel", "onShippingLoaded", this.onTabLoaded, this);
+			eventBus.subscribe("ListChannel", "onListChanged", this.onLisChanged, this);
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
@@ -37,6 +38,11 @@ sap.ui.define([
 				}, this);
 			}.bind(this));
 
+		},
+
+		onLisChanged: function(channel, event, listId){
+			if (this._listId == listId)
+				this.refresh();
 		},
 
 		onTabLoaded: function(channel, event, data){

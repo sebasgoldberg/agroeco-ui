@@ -57,9 +57,9 @@ sap.ui.define([
 				id: controlId,
 				viewName: this.sViewName,
 				success: function () {
-					Opa5.assert.ok(true, "The "+controlId+" is displayed".);
+					Opa5.assert.ok(true, "The "+controlId+" is displayed");
 				},
-				errorMessage: "Did not find the "+controlId
+				errorMessage: "Did not find the "+ controlId
 			});					
 		},
 

@@ -22,9 +22,13 @@ sap.ui.define([
 			this.refreshItems();
 		},
 
+		getQueryParams: function(){
+			return 'expand=product_uom.product,product_uom.uom';
+		},
+
 		refreshItems: function(){
 			this.loadAndBindModel(
-				`items/?purchase_list=${this._listId}&expand=product_uom.product,product_uom.uom`).then(
+				`items/?purchase_list=${this._listId}&${this.getQueryParams()}`).then(
 					function(data){
 						var eventBus = sap.ui.getCore().getEventBus();
 						// 1. ChannelName, 2. EventName, 3. the data
@@ -54,16 +58,47 @@ sap.ui.define([
 			}.bind(this)).then(
 				function(data){
 					this.refreshItems();
-					var eventBus = sap.ui.getCore().getEventBus();
-					eventBus.publish("ListChannel", "onListChanged", this._listId);	
+					this._notifyListChanged();
 				}.bind(this),
 				function(reason){
 					console.error(reason);
 				}.bind(this));
 		},
-	
+		
+		_changeQuantityFromSource(oSource){
+			var oBindingContext = oSource.getBindingContext();
+			var oItem = oBindingContext.getObject();
+			this.patch(`items/${oItem.id}/`, {
+				quantity: oItem.quantity,
+			})
+			.then(function(oUpdatedItem){
+				this._notifyListChanged();
+				return this.get(`items/${oItem.id}/?${this.getQueryParams()}`)
+			}.bind(this))
+			.then(function(oUpdatedItem){
+				Object.assign(oItem,oUpdatedItem);
+				oBindingContext.getModel().refresh();		
+			})
+			.catch(function(reason){
+				console.error(reason);
+			});
+		},
+
+		onQuantityChange: function(oEvent){
+			this._changeQuantityFromSource(oEvent.getSource());
+		},
+
+		onSubmitQuantity: function(oEvent){
+			this._changeQuantityFromSource(oEvent.getSource());
+		},
+
 		resolve: function(){
 			return this.post(`lists/${this._listId}/resolutions/`);
+		},
+
+		_notifyListChanged: function(){
+			var eventBus = sap.ui.getCore().getEventBus();
+			eventBus.publish("ListChannel", "onListChanged", this._listId);
 		},
 
 		onResolve: function(){
@@ -72,8 +107,7 @@ sap.ui.define([
 				// 	listId: this._listId
 				// })
 				this.refreshItems();
-				var eventBus = sap.ui.getCore().getEventBus();
-				eventBus.publish("ListChannel", "onListChanged", this._listId);
+				this._notifyListChanged();
 			}.bind(this));
 		}
 
