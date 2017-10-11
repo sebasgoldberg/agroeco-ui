@@ -92,23 +92,15 @@ sap.ui.define([
 			this._changeQuantityFromSource(oEvent.getSource());
 		},
 
-		resolve: function(){
-			return this.post(`lists/${this._listId}/resolutions/`);
-		},
-
 		_notifyListChanged: function(){
 			var eventBus = sap.ui.getCore().getEventBus();
 			eventBus.publish("ListChannel", "onListChanged", this._listId);
 		},
 
 		onResolve: function(){
-			this.resolve().then(function(){
-				// this.getRouter().navTo('planning',{
-				// 	listId: this._listId
-				// })
-				this.refreshItems();
-				this._notifyListChanged();
-			}.bind(this));
+			this.getRouter().navTo('resolveList',{
+				listId: this._listId
+			});
 		}
 
 	});

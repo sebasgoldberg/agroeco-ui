@@ -118,6 +118,12 @@
 					"parent": "items"
 				},
 				{
+					"pattern": "resolve",
+					"name": "resolveList",
+					"target": ["resolveList"],
+					"parent": "items"
+				},
+				{
 					"pattern": "{itemId}/resolutions/add",
 					"name": "addResolution",
 					"target": ["addResolutionForm"],
@@ -167,6 +173,12 @@
 				},
 				"addItemForm": {
 					"viewName": "AddItemForm",
+					"viewLevel": 10,
+					"controlAggregation": "detailPages",
+					"transition": "flip"
+				},
+				"resolveList": {
+					"viewName": "ResolveList",
 					"viewLevel": 10,
 					"controlAggregation": "detailPages",
 					"transition": "flip"

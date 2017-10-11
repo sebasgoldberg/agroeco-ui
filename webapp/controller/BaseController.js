@@ -169,5 +169,10 @@ sap.ui.define([
 			oControl.setBusy(bIsBusy);
 		},
 
+		notifyListChanged: function(){
+			var eventBus = sap.ui.getCore().getEventBus();
+			eventBus.publish("ListChannel", "onListChanged", this._listId);
+		},
+
 	});
 });
