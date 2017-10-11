@@ -85,7 +85,7 @@ sap.ui.define([
 		},
 
 		onQuantityChange: function(oEvent){
-			this._changeQuantityFromSource(oEvent.getSource());
+			sap.m.MessageToast.show("Presione Enter para modificar.")
 		},
 
 		onSubmitQuantity: function(oEvent){

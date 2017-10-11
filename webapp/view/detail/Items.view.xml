@@ -62,6 +62,7 @@
 					<ObjectIdentifier title="{product_uom/product/title}" text="" />
 					<Input 
 						submit="onSubmitQuantity"
+						liveChange="onQuantityChange"
 						editable="true"
 						value="{
 							parts: [{path: 'quantity'}, {path: 'product_uom/uom/name'}],
