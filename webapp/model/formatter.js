@@ -35,9 +35,9 @@ sap.ui.define([], function () {
 			if (iQuantity == 0){
 				if ( iSurplusQuantity == 0 )
 					return "None";
-				return "Error"
+				return "Error";
 			}
-			var iRelation = iSurplusQuantity / iQuantity;
+			var iRelation = Math.abs(iSurplusQuantity / iQuantity);
 			if (iRelation < 0.1)
 				return "Success";
 			if (iRelation <= 0.3)

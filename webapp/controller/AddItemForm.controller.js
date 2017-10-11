@@ -6,6 +6,8 @@ sap.ui.define([
 
 	return BaseController.extend("iamsoft.agroeco.controller.AddItemForm", {
 
+		busyControl: "addItemFormPage",
+
 		onInit: function () {
 
 			BaseController.prototype.onInit.bind(this)();
@@ -36,20 +38,24 @@ sap.ui.define([
 		},
 
 		refreshProductsList: function(){
+			this.setBusy(true);
 			this.getView().unbindElement('products');
 			let query = {
 				expand: "product,uom",
 			};
 			this._form = this.getModel('form').getData();
 			if (this._form.vendor)
-				query.vendorproduct__vendor = this._form.vendor
+				query.vendorproduct__vendor = this._form.vendor;
 			if (this._form.search)
-				query.search = this._form.search
+				query.search = this._form.search;
+			query.list_to_exclude = this._form.purchase_list;
 			this.loadAndBindModel(
 				'product_uom?' + jQuery.param(query),{ 
 					modelName:'products', 
 					sizeLimit:10000,
-				});
+				})
+				.then( data => this.setBusy(false))
+				.catch( reason => this.setBusy(false));
 		},
 
 		_onAddItemMatched: function(oEvent){
@@ -94,19 +100,6 @@ sap.ui.define([
 			return new Promise(function(resolve, reject){
 				reject("Debe seleccionar al menos un item.");
 			})
-
-			//////////////////
-			// var data = this.getModel('form').getData();
-			// this.post('items/', JSON.stringify(data)).then(
-			// 	function(data){
-			// 		var eventBus = sap.ui.getCore().getEventBus();
-			// 		eventBus.publish("ListChannel", "onListChanged", data['purchase_list']);	
-			// 		this.getRouter().navTo('items', {listId: data['purchase_list']});
-			// 	}.bind(this),
-			// 	function(reason){
-			// 		console.error(reason);
-			// 	}.bind(this)
-			// );
 
 		},
 
