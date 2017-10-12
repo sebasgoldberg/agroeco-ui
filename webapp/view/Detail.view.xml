@@ -61,6 +61,19 @@
                             icon="sap-icon://cart-4"
                             iconColor=""
                             design="Vertical"
+                            count=""
+                            text="Proveedores"
+                            key="vendors"
+                            id="vendorsTab">
+                            <!-- <mvc:XMLView viewName="iamsoft.agroeco.view.detail.Items"/> -->
+                        </IconTabFilter>
+
+                        <IconTabSeparator icon="sap-icon://open-command-field" />
+
+                        <IconTabFilter
+                            icon="sap-icon://cart-4"
+                            iconColor=""
+                            design="Vertical"
                             count="{/items_count}"
                             text="Items"
                             key="items"

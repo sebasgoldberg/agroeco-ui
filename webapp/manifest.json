@@ -94,6 +94,12 @@
 					"parent": "detail"
 				},
 				{
+					"pattern": "vendors",
+					"name": "vendors",
+					"target": ["vendors"],
+					"parent": "detail"
+				},
+				{
 					"pattern": "planning",
 					"name": "planning",
 					"target": ["planning"],
@@ -140,6 +146,14 @@
 					"viewName": "Detail",
 					"viewLevel": 2,
 					"controlAggregation": "detailPages"
+				},
+				"vendors": {
+					"viewPath": "iamsoft.agroeco.view.detail",
+					"viewName": "Vendors",
+					"viewLevel": 3,
+					"controlAggregation": "content",
+					"controlId":"vendorsTab",
+					"parent": "detail"
 				},
 				"items": {
 					"viewPath": "iamsoft.agroeco.view.detail",

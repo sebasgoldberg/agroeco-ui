@@ -1,0 +1,74 @@
+<mvc:View
+		height="100%"
+		xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.m"
+		xmlns:semantic="sap.m.semantic"
+		displayBlock="true"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form"
+        controllerName="iamsoft.agroeco.controller.detail.Vendors">
+
+    <f:Form editable="true">
+        <f:layout>
+            <f:ResponsiveGridLayout
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false" />
+        </f:layout>
+        <f:FormContainer>
+            <f:formElements>
+                <f:FormElement label="Proveedor">
+                    <f:fields>
+                        <CheckBox text="Considerar Solo Proveedores Marcados" selected="{list>/filter_vendors}" />
+                    </f:fields>
+                </f:FormElement>
+            </f:formElements>
+        </f:FormContainer>
+    </f:Form>
+
+	<Table
+		id="vendorsTable"
+		headerText="Proveedores a considerar"
+        mode="MultiSelect"
+		items="{
+			path:'/',
+			sorter: {
+				path: 'name',
+				descending: false
+			}
+		}" >
+
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Proveedores" level="H2"/>
+                <ToolbarSpacer/>
+                
+                <Button	text="" press="onSave" icon="sap-icon://save"/>
+
+            </Toolbar>
+        </headerToolbar>
+
+		<columns>
+			<Column>
+				<header>
+					<Text text="Proveedor" />
+				</header>
+			</Column>			
+		</columns>
+		<ColumnListItem>
+			<ObjectIdentifier title="{name}" text="" />
+		</ColumnListItem>
+	</Table>
+
+</mvc:View>

@@ -32,7 +32,7 @@ sap.ui.define([
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
-			["items", "planning", "shipping"].forEach(function(tabName){
+			["vendors", "items", "planning", "shipping"].forEach(function(tabName){
 				this.getRouter().getRoute(tabName).attachMatched(function(){
 					this.getModel("view").setProperty("/selectedTabKey", tabName);
 				}, this);
