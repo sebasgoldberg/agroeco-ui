@@ -14,10 +14,17 @@ sap.ui.define([
 
 			this.getRouter().getRoute("items").attachMatched(this._onItemsMatched, this);
 
+			let eventBus = sap.ui.getCore().getEventBus();
+			eventBus.subscribe("ListChannel", "onListChanged", this.onListChanged, this);
+
 		},
 
 		_onItemsMatched: function (oEvent) {
 			this.refresh(oEvent.getParameter("arguments").listId);
+		},
+
+		onListChanged: function(channel, event, listId){
+			this.refresh();
 		},
 
 		getQueryParams: function(){

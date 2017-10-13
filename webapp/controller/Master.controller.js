@@ -20,13 +20,13 @@ sap.ui.define([
 			this.getRouter().getRoute("master").attachPatternMatched(this._onMasterPatternMatched, this);
 
 			var eventBus = sap.ui.getCore().getEventBus();
-			eventBus.subscribe("ListChannel", "onListChanged", this.onLisChanged, this);
-			eventBus.subscribe("ListChannel", "onListAdded", this.onLisAdded, this);
+			eventBus.subscribe("ListChannel", "onListChanged", this.onListChanged, this);
+			eventBus.subscribe("ListChannel", "onListAdded", this.onListAdded, this);
 			eventBus.subscribe("ListChannel", "onListDeleted", this.onListDeleted, this);
 
 		},
 
-		onLisChanged: function(channel, event, listId){
+		onListChanged: function(channel, event, listId){
 			this.setBusy(true);
 			this.get(`lists/${listId}`).then(
 				function(updatedList){
@@ -46,7 +46,7 @@ sap.ui.define([
 
 		},
 
-		onLisAdded: function(channel, event, listId){
+		onListAdded: function(channel, event, listId){
 			this.setBusy(true);
 			this.get(`lists/${listId}`).then(
 				function(newList){

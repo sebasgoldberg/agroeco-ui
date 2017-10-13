@@ -12,10 +12,17 @@ sap.ui.define([
 
 			this.getRouter().getRoute("planning").attachMatched(this._onPlanningMatched, this);
 
+			let eventBus = sap.ui.getCore().getEventBus();
+			eventBus.subscribe("ListChannel", "onListChanged", this.onListChanged, this);
+
 		},
 
 		_onPlanningMatched: function (oEvent) {
 			this.refresh(oEvent.getParameter("arguments").listId);
+		},
+
+		onListChanged: function(channel, event, listId){
+			this.refresh();
 		},
 
 		removeDeletedResolutions: function(deletedResolutions){
