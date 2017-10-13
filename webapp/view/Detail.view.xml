@@ -58,7 +58,7 @@
 
         <!-- sap-icon://activity-items -->
                         <IconTabFilter
-                            icon="sap-icon://cart-4"
+                            icon="sap-icon://account"
                             iconColor=""
                             design="Vertical"
                             count=""
