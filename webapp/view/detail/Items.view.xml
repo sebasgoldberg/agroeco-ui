@@ -11,7 +11,7 @@
 		headerText="Products"
 		mode="MultiSelect"
 		items="{
-			path:'',
+			path:'/',
 			sorter: {
 				path: 'id',
 				descending: false

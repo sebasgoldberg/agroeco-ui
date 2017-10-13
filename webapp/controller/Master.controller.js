@@ -28,50 +28,51 @@ sap.ui.define([
 
 		onListChanged: function(channel, event, listId){
 			this.setBusy(true);
-			this.get(`lists/${listId}`).then(
-				function(updatedList){
-					var lists = this.getModel().getObject('/')
-					var updatedLists = lists.map(function(list){
-						if (list.id == listId)
-							return updatedList;
-						return list
-					});
-					this.getModel().setData(updatedLists);
-					this.setBusy(false);					
-				}.bind(this),
-				function(reason){
-					console.error(reason);
-				}
-			);
-
+			this.get(`lists/${listId}`)
+				.then( updatedList => {
+					let oModel = this.getModel();
+					let lists = oModel.getObject('/')
+					for (let i=0; i<lists.length; i++){
+						if (lists[i].id == updatedList.id){
+							lists[i] = updatedList;
+							break;
+						}
+					}
+					oModel.refresh();
+				})
+				.catch( reason => console.error(reason) )
+				.then( () => this.setBusy(false) );
 		},
 
 		onListAdded: function(channel, event, listId){
 			this.setBusy(true);
-			this.get(`lists/${listId}`).then(
-				function(newList){
+			this.get(`lists/${listId}`)
+				.then( newList => {
 					var lists = this.getModel().getObject('/');
 					lists.unshift(newList);
 					this.getModel().setData(lists);
-					this.setBusy(false);					
-				}.bind(this),
-				function(reason){
-					console.error(reason);
-				}
-			);
-
+				})
+				.catch( reason => console.error(reason) )
+				.then( () => this.setBusy(false) );
 		},
 
 		onListDeleted: function(channel, event, listId){
 			this.setBusy(true);
-
+			
 			if (this._listId === listId)
 				this._listId = undefined;
-			var lists = this.getModel().getObject('/');
-			var updatedLists = lists.filter(function(list){
-				return list.id !== listId;
-			});
-			this.getModel().setData(updatedLists);
+
+			let oModel = this.getModel();
+			let lists = oModel.getObject('/');
+
+			for (let i=0; i<lists.length; i++){
+				if (lists[i].id == listId){
+					lists.splice(i, 1);
+					break;
+				}
+			}
+			oModel.refresh();
+
 			this.selectFirst();
 
 			this.setBusy(false);
@@ -121,24 +122,22 @@ sap.ui.define([
 		},
 
 		refreshLists: function(selectFirst=True){
+
 			this.setBusy(true);
+
 			var query = {};
+
 			if (this._searchQuery)
 				query = {
 					search: this._searchQuery
 				};
 			
 			query.ordering = '-date,-id';
-			this.loadAndBindModel('lists?' + jQuery.param(query)).then(
-				function(data){
-					if (selectFirst)
-						this.selectFirst();
-					this.setBusy(false);
-				}.bind(this),
-				function(reason){
-					console.error(reason);
-				}.bind(this)
-			);
+
+			this.loadAndBindModel('lists?' + jQuery.param(query))
+				.then( data => selectFirst && this.selectFirst() )
+				.catch( reason => console.error(reason) )
+				.then( () => this.setBusy(false) );
 		},
 
 		onAddItem: function(){
@@ -147,9 +146,7 @@ sap.ui.define([
 
 		onSelectList: function(oEvent){
 			var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
-			// var oList = oEvent.getSource();
 			this.getRouter().navTo("items", {
-				// listId : oList.getBindingContext().getProperty("id")
 				listId: oItem.getBindingContext().getProperty("id")
 			});
 		},

@@ -29,11 +29,13 @@ sap.ui.define([
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
-			["vendors", "items", "planning", "shipping"].forEach(function(tabName){
-				this.getRouter().getRoute(tabName).attachMatched(function(){
-					this.getModel("view").setProperty("/selectedTabKey", tabName);
-				}, this);
-			}.bind(this));
+			["vendors", "items", "planning", "shipping"].forEach( 
+				tabName =>
+					this.getRouter().getRoute(tabName).attachMatched( 
+						() => 
+							this.getModel("view").setProperty("/selectedTabKey", tabName)
+					)
+			);
 
 		},
 
@@ -50,13 +52,10 @@ sap.ui.define([
 				return
 			if (listId)
 				this._listId = listId
-			// this.setBusy(true);
-			this.loadAndBindModel(`lists/${this._listId}/`).then(
-				data => this.setBusy(false)
-			).catch( reason => {
-				this.setBusy(false);
-				return Promise.reject(reason);
-			});
+			this.setBusy(true);
+			this.loadAndBindModel(`lists/${this._listId}/`)
+				.catch( reason => console.log(reason) )
+				.then( () => this.setBusy(false) );
 		},
 
 		onDeleteList: function(oEvent){
@@ -68,9 +67,9 @@ sap.ui.define([
 					this.getRouter().navTo('master');
 					eventBus.publish("ListChannel", "onListDeleted", listId);
 					this.setBusy(false);
-				},
-				reason => console.error(reason)
-			);
+				})
+				.catch( reason => console.log(reason) )
+				.then( () => this.setBusy(false) );
 		},
 
 		onTabSelect : function (oEvent){
