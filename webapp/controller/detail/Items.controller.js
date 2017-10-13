@@ -18,7 +18,6 @@ sap.ui.define([
 
 		_onItemsMatched: function (oEvent) {
 			this.refresh(oEvent.getParameter("arguments").listId);
-			this.refreshItems(this._listId);
 		},
 
 		getQueryParams: function(){
