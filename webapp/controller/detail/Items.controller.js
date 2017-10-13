@@ -58,7 +58,7 @@ sap.ui.define([
 			}.bind(this)).then(
 				function(data){
 					this.refreshItems();
-					this._notifyListChanged();
+					this.notifyListChanged();
 				}.bind(this),
 				function(reason){
 					console.error(reason);
@@ -72,7 +72,7 @@ sap.ui.define([
 				quantity: oItem.quantity,
 			})
 			.then(function(oUpdatedItem){
-				this._notifyListChanged();
+				this.notifyListChanged();
 				return this.get(`items/${oItem.id}/?${this.getQueryParams()}`)
 			}.bind(this))
 			.then(function(oUpdatedItem){
@@ -92,15 +92,13 @@ sap.ui.define([
 			this._changeQuantityFromSource(oEvent.getSource());
 		},
 
-		_notifyListChanged: function(){
-			var eventBus = sap.ui.getCore().getEventBus();
-			eventBus.publish("ListChannel", "onListChanged", this._listId);
-		},
-
 		onResolve: function(){
-			this.getRouter().navTo('resolveList',{
-				listId: this._listId
-			});
+			this.post(`lists/${this._listId}/resolutions/`).then(
+				result => {
+					this.notifyListChanged();
+					this.refreshItems();
+				}
+			);
 		}
 
 	});

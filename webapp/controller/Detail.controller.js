@@ -55,7 +55,7 @@ sap.ui.define([
 		},
 
 		refresh: function(){
-			this.setBusy(true);
+			// this.setBusy(true);
 			this.loadAndBindModel(`lists/${this._listId}/`).then(function(data){
 				this.setBusy(false);
 			}.bind(this));
