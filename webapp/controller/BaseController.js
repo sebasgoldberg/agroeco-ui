@@ -148,7 +148,8 @@ sap.ui.define([
         },
 
 		removeFromTable: function(tableId, deleterPromiseCreator){
-			var aContexts = this.getView().byId(tableId).getSelectedContexts();
+            let oTable = this.getView().byId(tableId)
+			var aContexts = oTable.getSelectedContexts();
 
 			if (aContexts && aContexts.length) {
 
@@ -156,7 +157,10 @@ sap.ui.define([
 					return deleterPromiseCreator(oContext.getObject());
 				}.bind(this));
 
-				return Promise.all(deletePromises);
+				return Promise.all(deletePromises).then( result => {
+                    oTable.removeSelections();
+                    return result;
+                });
 			}
 
 			return new Promise(function(resolve, reject){

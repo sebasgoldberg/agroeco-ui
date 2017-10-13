@@ -17,13 +17,20 @@ sap.ui.define([
 		},
 
 		_onItemsMatched: function (oEvent) {
-			this._listId =  oEvent.getParameter("arguments").listId;
-
-			this.refreshItems();
+			this.refresh(oEvent.getParameter("arguments").listId);
+			this.refreshItems(this._listId);
 		},
 
 		getQueryParams: function(){
 			return 'expand=product_uom.product,product_uom.uom';
+		},
+
+		refresh: function(listId=undefined){
+			if (this._listId == listId)
+				return;
+			if (listId)
+				this._listId = listId;
+			this.refreshItems();
 		},
 
 		refreshItems: function(){
@@ -31,7 +38,6 @@ sap.ui.define([
 				`items/?purchase_list=${this._listId}&${this.getQueryParams()}`).then(
 					function(data){
 						var eventBus = sap.ui.getCore().getEventBus();
-						// 1. ChannelName, 2. EventName, 3. the data
 						eventBus.publish("ListChannel", "onItemsLoaded", data);
 					}
 				);
@@ -52,17 +58,28 @@ sap.ui.define([
 			}	
 		},
 
+		removeDeletedItems: function(deletedItems){
+			let oModel = this.getModel();
+			let deletedItemsIds = deletedItems.map( (item) => item.id );
+			let itemsNotRemoved = oModel.getData().filter(
+				item => deletedItemsIds.indexOf(item.id) < 0 
+			);
+			oModel.setData(itemsNotRemoved);
+			oModel.refresh();
+		},
+
 		onRemoveItem: function(oEvent){
-			this.removeFromTable("itemsTable", function(object){
-				return this.delete(`items/${object.id}/`);
-			}.bind(this)).then(
-				function(data){
-					this.refreshItems();
+			this.removeFromTable("itemsTable", object =>
+				this.delete(`items/${object.id}/`).then( 
+					() => object
+				)
+			).then(
+				deletedItems => {
+					this.removeDeletedItems(deletedItems);
 					this.notifyListChanged();
-				}.bind(this),
-				function(reason){
-					console.error(reason);
-				}.bind(this));
+				},
+				reason => console.error(reason)
+			);
 		},
 		
 		_changeQuantityFromSource(oSource){
@@ -96,7 +113,7 @@ sap.ui.define([
 			this.post(`lists/${this._listId}/resolutions/`).then(
 				result => {
 					this.notifyListChanged();
-					this.refreshItems();
+					this.refresh();
 				}
 			);
 		}
