@@ -10,54 +10,47 @@ sap.ui.define([
 
 			BaseController.prototype.onInit.bind(this)();
 
-			this.getRouter().getRoute("planning").attachMatched(this._onItemsMatched, this);
+			this.getRouter().getRoute("planning").attachMatched(this._onPlanningMatched, this);
 
 		},
 
-		_onItemsMatched: function (oEvent) {
-			this._listId =  oEvent.getParameter("arguments").listId;
+		_onPlanningMatched: function (oEvent) {
+			this.refresh(oEvent.getParameter("arguments").listId);
+		},
 
-			this.refreshItems();
+		removeDeletedResolutions: function(deletedResolutions){
+			let oModel = this.getModel();
+			let deletedResolutionsIds = deletedResolutions.map( (item) => item.id );
+			let resolutionsNotRemoved = oModel.getData().filter(
+				resolution => deletedResolutionsIds.indexOf(resolution.id) < 0 
+			);
+			oModel.setData(resolutionsNotRemoved);
+			oModel.refresh();
 		},
 
 		onRemoveResolution: function(oEvent){
-			this.removeFromTable("resolutionsTable", function(object){
-				return this.delete(`resolutions/${object.id}/`);
-			}.bind(this)).then(
-				function(data){
-					this.refreshItems();
-					var eventBus = sap.ui.getCore().getEventBus();
-					eventBus.publish("ListChannel", "onListChanged", this._listId);
-			}.bind(this),
-				function(reason){
-					console.error(reason);
-				}.bind(this));
+			this.removeFromTable("resolutionsTable", 
+				object =>
+					this.delete(`resolutions/${object.id}/`)
+					.then( () => object )
+			)
+			.then(
+				deletedResolutions => {
+					this.removeDeletedResolutions(deletedResolutions);
+					this.notifyListChanged();
+				},
+				reason => console.error(reason)
+			);
 		},
 
-		refreshItems: function(){
+		refresh: function(listId){
+			if (this._listId && this._listId == listId)
+				return;
+			if (listId)
+				this._listId = listId;
 			this.loadAndBindModel(
 				`resolutions/?item__purchase_list=${this._listId}&expand=vendor_product.vendor,vendor_product.product_uom.uom`);
 		},
-
-		// sendResolutions(){
-		// 	return this.post(
-		// 		`lists/${this._listId}/email/`,
-		// 		{
-		// 			email: 'sebas.goldberg@gmail.com'
-		// 		}
-		// 	);
-		// },
-
-		// onSendResolutions: function(){
-		// 	this.sendResolutions().then(
-		// 		function(data){
-		// 			MessageToast.show(data.status);
-		// 		}.bind(this),
-		// 		function(reason){
-		// 			MessageToast.show(reason.status);
-		// 		}
-		// 	);
-		// }
 
 	});
 });
