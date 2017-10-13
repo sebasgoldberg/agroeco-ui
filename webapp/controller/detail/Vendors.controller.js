@@ -17,9 +17,7 @@ sap.ui.define([
 		},
 
 		_onVendorsMatched: function (oEvent) {
-			this._listId =  oEvent.getParameter("arguments").listId;
-
-			this.refresh();
+			this.refresh(oEvent.getParameter("arguments").listId);
 		},
 
 		setSelectedVendors: function(vendors, list){
@@ -34,7 +32,11 @@ sap.ui.define([
 			this.getModel().refresh();
 		},
 
-		refresh: function(){
+		refresh: function(listId){
+			if (this._listId && this._listId == listId)
+				return;
+			if (listId)
+				this._listId = listId;
 			Promise.all([
 				this.loadAndBindModel(`vendors/`),
 				this.loadAndBindModel(`lists/${this._listId}/`,{modelName:"list"}),
