@@ -11,6 +11,7 @@ sap.ui.define([
 		onInit: function () {
             this._baseUriService = this.getOwnerComponent()
                 .getManifestEntry('/sap.app/dataSources/mainService/uri');
+            this.initModel();
         },
 
         getModel : function (sName) {
@@ -27,6 +28,12 @@ sap.ui.define([
 
         getUriService: function(relativeUri){
             return this.getBaseUriService() + relativeUri;
+        },
+
+        initModel: function(){
+			var oModel = new JSONModel([]);
+			this.getView().setModel(oModel);
+			this.getView().bindElement('/');
         },
 
         loadAndBindModel: function(relativeUri, options){
