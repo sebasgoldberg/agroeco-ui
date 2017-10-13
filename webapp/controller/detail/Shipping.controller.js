@@ -24,13 +24,7 @@ sap.ui.define([
 
 		refreshItems: function(){
 			this.loadAndBindModel(
-				`vendors-shipping-methods/?vendor__vproducts__resolutions__item__purchase_list=${this._listId}&expand=vendor&ordering=vendor`).then(
-					function(data){
-						var eventBus = sap.ui.getCore().getEventBus();
-						// 1. ChannelName, 2. EventName, 3. the data
-						eventBus.publish("ListChannel", "onShippingLoaded", data);
-					}
-				);
+				`vendors-shipping-methods/?vendor__vproducts__resolutions__item__purchase_list=${this._listId}&expand=vendor&ordering=vendor`);
 		},
 
 	});

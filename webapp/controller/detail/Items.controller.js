@@ -24,8 +24,8 @@ sap.ui.define([
 			return 'expand=product_uom.product,product_uom.uom';
 		},
 
-		refresh: function(listId=undefined){
-			if (this._listId == listId)
+		refresh: function(listId){
+			if (this._listId && this._listId == listId)
 				return;
 			if (listId)
 				this._listId = listId;
@@ -34,12 +34,7 @@ sap.ui.define([
 
 		refreshItems: function(){
 			this.loadAndBindModel(
-				`items/?purchase_list=${this._listId}&${this.getQueryParams()}`).then(
-					function(data){
-						var eventBus = sap.ui.getCore().getEventBus();
-						eventBus.publish("ListChannel", "onItemsLoaded", data);
-					}
-				);
+				`items/?purchase_list=${this._listId}&${this.getQueryParams()}`);
 		},
 
 		onAddItem: function(){

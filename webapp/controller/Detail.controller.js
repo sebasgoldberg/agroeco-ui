@@ -25,10 +25,7 @@ sap.ui.define([
 
 			var eventBus = sap.ui.getCore().getEventBus();
 
-			eventBus.subscribe("ListChannel", "onItemsLoaded", this.onTabLoaded, this);
-			eventBus.subscribe("ListChannel", "onResolutionsLoaded", this.onTabLoaded, this);
-			eventBus.subscribe("ListChannel", "onShippingLoaded", this.onTabLoaded, this);
-			eventBus.subscribe("ListChannel", "onListChanged", this.onLisChanged, this);
+			eventBus.subscribe("ListChannel", "onListChanged", this.onListChanged, this);
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
 
@@ -40,48 +37,46 @@ sap.ui.define([
 
 		},
 
-		onLisChanged: function(channel, event, listId){
-			if (this._listId == listId)
-				this.refresh();
-		},
-
-		onTabLoaded: function(channel, event, data){
+		onListChanged: function(channel, event, listId){
 			this.refresh();
 		},
 
 		_onDetailMatched: function (oEvent) {
-			this._listId =  oEvent.getParameter("arguments").listId;
-			this.refresh();
+			this.refresh(oEvent.getParameter("arguments").listId);
 		},
 
-		refresh: function(){
+		refresh: function(listId){
+			if (this._listId && this._listId == listId)
+				return
+			if (listId)
+				this._listId = listId
 			// this.setBusy(true);
-			this.loadAndBindModel(`lists/${this._listId}/`).then(function(data){
+			this.loadAndBindModel(`lists/${this._listId}/`).then(
+				data => this.setBusy(false)
+			).catch( reason => {
 				this.setBusy(false);
-			}.bind(this));
+				return Promise.reject(reason);
+			});
 		},
 
 		onDeleteList: function(oEvent){
 			this.setBusy(true);
 			var listId = this.getModel().getProperty('/id');
 			this.delete(`lists/${listId}/`).then(
-				function(data){
+				data => {
 					var eventBus = sap.ui.getCore().getEventBus();
 					this.getRouter().navTo('master');
 					eventBus.publish("ListChannel", "onListDeleted", listId);
 					this.setBusy(false);
-				}.bind(this),
-				function(reason){
-					console.error(reason);
-				}.bind(this)
+				},
+				reason => console.error(reason)
 			);
 		},
 
 		onTabSelect : function (oEvent){
-			var listId =  this.getModel().getProperty("/id");						
 			var selectedKey = oEvent.getParameter("selectedKey");
 			this.getRouter().navTo(selectedKey, {
-				listId : listId,
+				listId : this._listId,
 			});
 		},
 
