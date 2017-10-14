@@ -69,6 +69,14 @@
 				demandPopin="true"
 				hAlign="Center" >
 				<header>
+					<Text text="Contenido" />
+				</header>
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="Center" >
+				<header>
 					<Text text="Precio Total" />
 				</header>
 			</Column>
@@ -81,7 +89,7 @@
 				state="" /> -->
 
 			<ObjectIdentifier title="{vendor_product/name}" 
-				text="(x{vendor_product/quantity} {vendor_product/product_uom/uom/name})" />
+				text="" />
 			<Text text="{vendor_product/vendor/name}" />
 			<ObjectNumber
 				number="{
@@ -89,6 +97,16 @@
 					type: 'sap.ui.model.type.Float'
 				}"
 				unit=""
+				state="" />
+			<ObjectNumber
+				number="{
+					parts: [{path: 'vendor_product/quantity'}, {path: ''}],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {
+						showMeasure: false 
+					} 
+				}"
+				unit="{vendor_product/product_uom/uom/name}"
 				state="" />
 			<ObjectNumber
 				number="{
