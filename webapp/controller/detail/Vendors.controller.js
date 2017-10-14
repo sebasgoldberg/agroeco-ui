@@ -45,6 +45,17 @@ sap.ui.define([
 			.catch( reasons => console.error(reasons) );
 		},
 
+		onSelectFilterVendors: function(oEvent){
+			this.setBusy(true);
+			let filterVendors = oEvent.getParameters().selected;
+			this.patch(`lists/${this._listId}/`,{
+				filter_vendors: filterVendors,
+			})
+			.then( () => this.notifyListChanged() )
+			.catch( reason => console.error(reason) )
+			.then( () => this.setBusy(false) );
+		},
+
 		save: function(filterVendors, selectedVendorIds){
 			this.patch(`lists/${this._listId}/`, {
 				vendors: selectedVendorIds,

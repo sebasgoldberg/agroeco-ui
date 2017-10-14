@@ -59,9 +59,9 @@
         <!-- sap-icon://activity-items -->
                         <IconTabFilter
                             icon="sap-icon://account"
-                            iconColor=""
+                            iconColor="{=${filter_vendors}?'Critical':'Default'}"
                             design="Vertical"
-                            count=""
+                            count="{vendors/length}"
                             text="Proveedores"
                             key="vendors"
                             id="vendorsTab">

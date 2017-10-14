@@ -7,19 +7,20 @@
 		displayBlock="true"
         xmlns:l="sap.ui.layout"
         xmlns:f="sap.ui.layout.form"
-        controllerName="iamsoft.agroeco.controller.detail.Vendors">
+        controllerName="iamsoft.agroeco.controller.detail.Vendors"
+        id="vendorsView">
 
     <f:Form editable="true">
         <f:layout>
             <f:ResponsiveGridLayout
-                labelSpanXL="3"
-                labelSpanL="3"
-                labelSpanM="3"
-                labelSpanS="12"
+                labelSpanXL="1"
+                labelSpanL="1"
+                labelSpanM="1"
+                labelSpanS="1"
                 adjustLabelSpan="false"
-                emptySpanXL="4"
-                emptySpanL="4"
-                emptySpanM="4"
+                emptySpanXL="1"
+                emptySpanL="1"
+                emptySpanM="1"
                 emptySpanS="0"
                 columnsXL="1"
                 columnsL="1"
@@ -28,9 +29,11 @@
         </f:layout>
         <f:FormContainer>
             <f:formElements>
-                <f:FormElement label="Proveedor">
+                <f:FormElement label="">
                     <f:fields>
-                        <CheckBox text="Considerar Solo Proveedores Marcados" selected="{list>/filter_vendors}" />
+                        <CheckBox text="Considerar Proveedores Marcados" 
+                            selected="{list>/filter_vendors}" 
+                            select="onSelectFilterVendors"/>
                     </f:fields>
                 </f:FormElement>
             </f:formElements>
@@ -53,8 +56,8 @@
             <Toolbar>
                 <Title text="Proveedores" level="H2"/>
                 <ToolbarSpacer/>
-                
-                <Button	text="" press="onSave" icon="sap-icon://save"/>
+                <!-- <CheckBox text="Utilizar Marcados" selected="{list>/filter_vendors}" />
+                <Button	text="" press="onSave" icon="sap-icon://save"/> -->
 
             </Toolbar>
         </headerToolbar>
