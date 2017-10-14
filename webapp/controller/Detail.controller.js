@@ -17,8 +17,10 @@ sap.ui.define([
 
 			this.setBusy(false);
 
+			let tabNames = ["vendors", "items", "planning", "shipping"];
+
 			var oModel = new JSONModel({
-				selectedTabKey: "",
+				selectedTabKey: tabNames[0],
 			});
 
 			this.getView().setModel(oModel, 'view');
@@ -28,8 +30,9 @@ sap.ui.define([
 			eventBus.subscribe("ListChannel", "onListChanged", this.onListChanged, this);
 			
 			this.getRouter().getRoute("detail").attachMatched(this._onDetailMatched, this);
+			this.getRouter().getRoute("detail").attachPatternMatched(this._onDetailPatternMatched, this);
 
-			["vendors", "items", "planning", "shipping"].forEach( 
+			tabNames.forEach( 
 				tabName =>
 					this.getRouter().getRoute(tabName).attachMatched( 
 						() => 
@@ -45,6 +48,14 @@ sap.ui.define([
 
 		_onDetailMatched: function (oEvent) {
 			this.refresh(oEvent.getParameter("arguments").listId);
+		},
+
+		_onDetailPatternMatched: function (oEvent) {
+			let selectedTabKey = this.getModel("view").getProperty("/selectedTabKey");
+			let listId = oEvent.getParameter("arguments").listId;
+			this.getRouter().navTo(selectedTabKey,{
+				listId: listId,
+			});
 		},
 
 		refresh: function(listId){

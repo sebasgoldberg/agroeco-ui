@@ -89,17 +89,16 @@ sap.ui.define([
 			
 			this._listId = oEvent.getParameter("arguments").listId;
 			
-			this.refreshLists(false);
+			this._listId ?
+				this.refreshLists(false) : this.refreshLists(true);
 
 		},
 
 		_onMasterPatternMatched: function(oEvent){
 
 			this.detachRoutes();
-
-			this._listId = oEvent.getParameter("arguments").listId;
 			
-			this.refreshLists();
+			this.refreshLists(true);
 			
 		},
 
@@ -115,7 +114,7 @@ sap.ui.define([
 		selectFirst: function(selectFirst=(!Device.system.phone)){
 			var lists = this.getModel().getObject('/');			
 			if (selectFirst && !this.listSelected() && lists.length>0){
-				this.getRouter().navTo("items",{
+				this.getRouter().navTo("detail",{
 					listId: lists[0].id,
 				});
 			}
@@ -146,7 +145,7 @@ sap.ui.define([
 
 		onSelectList: function(oEvent){
 			var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
-			this.getRouter().navTo("items", {
+			this.getRouter().navTo("detail", {
 				listId: oItem.getBindingContext().getProperty("id")
 			});
 		},

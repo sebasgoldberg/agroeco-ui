@@ -89,7 +89,7 @@ sap.ui.define([
 					function(data){
 						var eventBus = sap.ui.getCore().getEventBus();
 						eventBus.publish("ListChannel", "onListChanged", this._listId);	
-						this.getRouter().navTo('items', {listId: this._listId});
+						this.getRouter().navTo('detail', {listId: this._listId});
 					}.bind(this),
 					function(reason){
 						console.error(reason);

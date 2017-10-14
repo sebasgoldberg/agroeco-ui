@@ -10,35 +10,10 @@
         controllerName="iamsoft.agroeco.controller.detail.Vendors"
         id="vendorsView">
 
-    <f:Form editable="true">
-        <f:layout>
-            <f:ResponsiveGridLayout
-                labelSpanXL="1"
-                labelSpanL="1"
-                labelSpanM="1"
-                labelSpanS="1"
-                adjustLabelSpan="false"
-                emptySpanXL="1"
-                emptySpanL="1"
-                emptySpanM="1"
-                emptySpanS="0"
-                columnsXL="1"
-                columnsL="1"
-                columnsM="1"
-                singleContainerFullSize="false" />
-        </f:layout>
-        <f:FormContainer>
-            <f:formElements>
-                <f:FormElement label="">
-                    <f:fields>
+
                         <CheckBox text="Considerar Proveedores Marcados" 
                             selected="{list>/filter_vendors}" 
                             select="onSelectFilterVendors"/>
-                    </f:fields>
-                </f:FormElement>
-            </f:formElements>
-        </f:FormContainer>
-    </f:Form>
 
 	<Table
 		id="vendorsTable"

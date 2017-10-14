@@ -32,7 +32,7 @@ sap.ui.define([
 				function(data){
 					var eventBus = sap.ui.getCore().getEventBus();
 					eventBus.publish("ListChannel", "onListAdded", data['id']);	
-					this.getRouter().navTo('items', {listId: data['id']});
+					this.getRouter().navTo('detail', {listId: data['id']});
 				}.bind(this),
 				function(reason){
 					console.error(reason);
