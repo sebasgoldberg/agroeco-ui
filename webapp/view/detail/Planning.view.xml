@@ -13,8 +13,9 @@
 		items="{
 			path:'/',
 			sorter: {
-				path: 'item.id',
-				descending: false
+				path: 'vendor_product/vendor/name',
+				descending: false,
+				group: true
 			}
 		}" >
 
