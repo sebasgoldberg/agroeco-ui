@@ -56,22 +56,18 @@ sap.ui.define([
 			.then( () => this.setBusy(false) );
 		},
 
-		save: function(filterVendors, selectedVendorIds){
-			this.patch(`lists/${this._listId}/`, {
-				vendors: selectedVendorIds,
-				filter_vendors: filterVendors,
-			})
-		},
-
-		onSave: function(){
-			var aContexts = this.getView().byId("vendorsTable").getSelectedContexts();
-			selectedVendorIds = aContexts.map(
+		onVendorsSelectionChange: function(oEvent){
+			this.setBusy(true);
+			let aContexts = this.getView().byId("vendorsTable").getSelectedContexts();
+			let selectedVendorIds = aContexts.map(
 				oContext => oContext.getObject().id 
 			);
-			this.save(
-				this.getModel('list').getProperty('filter_vendors'),
-				selectedVendorIds
-			)
+			this.patch(`lists/${this._listId}/`, {
+				vendors: selectedVendorIds,
+			})
+			.then( () => this.notifyListChanged() )
+			.catch( reason => console.error(reason) )
+			.then( () => this.setBusy(false) );
 		},
 
 	});

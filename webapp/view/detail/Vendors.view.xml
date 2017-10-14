@@ -50,7 +50,8 @@
 				path: 'name',
 				descending: false
 			}
-		}" >
+		}" 
+        selectionChange="onVendorsSelectionChange">
 
         <headerToolbar>
             <Toolbar>
