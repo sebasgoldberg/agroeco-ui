@@ -95,11 +95,13 @@ sap.ui.define([
 			}.bind(this))
 			.then(function(oUpdatedItem){
 				Object.assign(oItem,oUpdatedItem);
-				oBindingContext.getModel().refresh();		
+				oBindingContext.getModel().refresh();
 			})
 			.catch(function(reason){
 				console.error(reason);
-			});
+			})
+			.then( () => 
+				this.getView().byId("itemsTable").setKeyboardMode("Edit"));
 		},
 
 		onQuantityChange: function(oEvent){

@@ -10,6 +10,7 @@
 		id="itemsTable"
 		headerText="Products"
 		mode="MultiSelect"
+		keyboardMode="Edit"
 		items="{
 			path:'/',
 			sorter: {
