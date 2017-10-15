@@ -36,5 +36,27 @@ sap.ui.define([
 				`vendors-shipping-methods/?vendor__vproducts__resolutions__item__purchase_list=${this._listId}&expand=vendor&ordering=vendor`);
 		},
 
+		onSendEmail(oEvent){
+            let oTable = this.getView().byId("shippingTable")
+			var aContexts = oTable.getSelectedContexts();
+
+			if (!aContexts){
+				this.error("Debe seleccionar al menos una forma de envío.");
+				return;
+			}
+
+			this.setBusy(true);
+			Promise.all( 
+				aContexts.map( oContext => {
+					let shippingMethodId = oContext.getObject().id;
+					return this.post(`lists/${this._listId}/email/`,{
+						shipping_method: shippingMethodId,
+					});
+				})
+			)
+			.catch( reasons => this.error(reasons) )
+			.then( () => this.setBusy(false) );
+		},
+
 	});
 });

@@ -189,5 +189,6 @@ sap.ui.define([
 			eventBus.publish("ListChannel", "onListChanged", this._listId);
 		},
 
+        error: message => console.error(message),
 	});
 });

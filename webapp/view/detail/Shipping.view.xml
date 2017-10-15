@@ -9,6 +9,7 @@
 	<Table
 		id="shippingTable"
 		headerText="Envío"
+		mode="MultiSelect"
 		items="{
 			path:'/',
 			sorter: {
@@ -22,7 +23,7 @@
                 <Title text="Envíos" level="H2"/>
                 <ToolbarSpacer/>
                 
-                <!-- <Button	text="" press="onOpenAddPedidoDialog" icon="sap-icon://add"/> -->
+                <Button	text="" press="onSendEmail" icon="sap-icon://email"/>
 
             </Toolbar>
         </headerToolbar>
