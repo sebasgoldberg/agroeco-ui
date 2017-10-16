@@ -17,6 +17,7 @@ sap.ui.define([
 			let eventBus = sap.ui.getCore().getEventBus();
 			eventBus.subscribe("ListChannel", "onListChanged", this.onListChanged, this);
 
+			this._aChangedItems = [];
 		},
 
 		_onItemsMatched: function (oEvent) {
@@ -83,33 +84,52 @@ sap.ui.define([
 			);
 		},
 		
-		_changeQuantityFromSource(oSource){
-			var oBindingContext = oSource.getBindingContext();
-			var oItem = oBindingContext.getObject();
-			this.patch(`items/${oItem.id}/`, {
-				quantity: oItem.quantity,
-			})
-			.then(function(oUpdatedItem){
+		onQuantityChange: function(oEvent){
+			let oItem = oEvent.getSource().getBindingContext().getObject();
+			if (this._aChangedItems.indexOf(oItem) < 0)
+				this._aChangedItems.push(oItem);
+		},
+
+		submitChanges: function(){
+
+			if (this._aChangedItems.length == 0)
+				return;
+
+			Promise.all(
+				this._aChangedItems.map( 
+					oItem => 
+						this.patch(`items/${oItem.id}/`, {
+							quantity: oItem.quantity,
+						}
+					)
+				)
+			)
+			.then( aUpdatedItems => {
 				this.notifyListChanged();
-				return this.get(`items/${oItem.id}/?${this.getQueryParams()}`)
-			}.bind(this))
-			.then(function(oUpdatedItem){
-				Object.assign(oItem,oUpdatedItem);
-				oBindingContext.getModel().refresh();
+				return Promise.all(this._aChangedItems.map( oItem =>
+					this.get(`items/${oItem.id}/?${this.getQueryParams()}`)
+				))
+			})
+			.then(aUpdatedItems => {
+				for (let i=0; i<this._aChangedItems.length; i++)
+					Object.assign(this._aChangedItems[i],aUpdatedItems[i]);
+				this.getModel().refresh();
 			})
 			.catch(function(reason){
 				console.error(reason);
 			})
-			.then( () => 
-				this.getView().byId("itemsTable").setKeyboardMode("Edit"));
+			.then( () => {
+				this.getView().byId("itemsTable").setKeyboardMode("Edit");
+				this._aChangedItems = [];
+			});
 		},
 
-		onQuantityChange: function(oEvent){
-			sap.m.MessageToast.show("Presione Enter para modificar.")
+		onSave: function(oEvent){
+			this.submitChanges();
 		},
 
 		onSubmitQuantity: function(oEvent){
-			this._changeQuantityFromSource(oEvent.getSource());
+			this.submitChanges();
 		},
 
 		onResolve: function(){
