@@ -51,6 +51,7 @@ sap.ui.define([
 					var lists = this.getModel().getObject('/');
 					lists.unshift(newList);
 					this.getModel().setData(lists);
+					this.selectFirst();
 				})
 				.catch( reason => console.error(reason) )
 				.then( () => this.setBusy(false) );
@@ -59,9 +60,6 @@ sap.ui.define([
 		onListDeleted: function(channel, event, listId){
 			this.setBusy(true);
 			
-			if (this._listId === listId)
-				this._listId = undefined;
-
 			let oModel = this.getModel();
 			let lists = oModel.getObject('/');
 
@@ -87,10 +85,7 @@ sap.ui.define([
 
 			this.detachRoutes();
 			
-			this._listId = oEvent.getParameter("arguments").listId;
-			
-			this._listId ?
-				this.refreshLists(false) : this.refreshLists(true);
+			this.refreshLists(false);
 
 		},
 
@@ -98,29 +93,30 @@ sap.ui.define([
 
 			this.detachRoutes();
 			
-			this.refreshLists(true);
+			this.refreshLists();
 			
 		},
 
 		onSearch: function(oEvent) {
 			this._searchQuery = oEvent.getSource().getValue();
-			this.refreshLists();
-		},
-
-		listSelected: function(){
-			return this._listId !== undefined;
+			this.refreshLists(false);
 		},
 
 		selectFirst: function(selectFirst=(!Device.system.phone)){
-			var lists = this.getModel().getObject('/');			
-			if (selectFirst && !this.listSelected() && lists.length>0){
-				this.getRouter().navTo("detail",{
-					listId: lists[0].id,
-				});
-			}
+			if (!selectFirst)
+				return;
+			let oList = this.getView().byId('listsList');
+			let oItems = oList.getItems();
+			if (oItems.length == 0)
+				return;
+			let oItem = oItems[0];
+			oList.setSelectedItem(oItem, true);
+			this.getRouter().navTo("detail",{
+				listId: oItem.getBindingContext().getObject().id,
+			});
 		},
 
-		refreshLists: function(selectFirst=True){
+		refreshLists: function(selectFirst=true){
 
 			this.setBusy(true);
 

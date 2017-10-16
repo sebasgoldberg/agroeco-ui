@@ -77,7 +77,6 @@ sap.ui.define([
 					var eventBus = sap.ui.getCore().getEventBus();
 					this.getRouter().navTo('master');
 					eventBus.publish("ListChannel", "onListDeleted", listId);
-					this.setBusy(false);
 				})
 				.catch( reason => console.log(reason) )
 				.then( () => this.setBusy(false) );

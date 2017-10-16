@@ -71,17 +71,19 @@ sap.ui.define([
 		},
 
 		onRemoveItem: function(oEvent){
+			this.setBusy(true);
 			this.removeFromTable("itemsTable", object =>
 				this.delete(`items/${object.id}/`).then( 
 					() => object
 				)
-			).then(
+			)
+			.then(
 				deletedItems => {
 					this.removeDeletedItems(deletedItems);
 					this.notifyListChanged();
-				},
-				reason => console.error(reason)
-			);
+				})
+			.catch( reason => console.error(reason) )
+			.then( () => this.setBusy(false) );
 		},
 		
 		onQuantityChange: function(oEvent){
@@ -95,6 +97,7 @@ sap.ui.define([
 			if (this._aChangedItems.length == 0)
 				return;
 
+			this.setBusy(true);
 			Promise.all(
 				this._aChangedItems.map( 
 					oItem => 
@@ -121,6 +124,7 @@ sap.ui.define([
 			.then( () => {
 				this.getView().byId("itemsTable").setKeyboardMode("Edit");
 				this._aChangedItems = [];
+				this.setBusy(false);
 			});
 		},
 
@@ -133,12 +137,14 @@ sap.ui.define([
 		},
 
 		onResolve: function(){
+			this.setBusy(true);
 			this.post(`lists/${this._listId}/resolutions/`).then(
 				result => {
 					this.notifyListChanged();
 					this.refresh();
 				}
-			);
+			).catch( reason => this.erro(reason) )
+			.then( () => this.setBusy(false) );
 		}
 
 	});

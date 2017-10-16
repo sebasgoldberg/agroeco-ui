@@ -1,7 +1,8 @@
 sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
 	"iamsoft/agroeco/model/formatter",
-], function(BaseController, formatter) {
+	"sap/ui/model/json/JSONModel",
+], function(BaseController, formatter, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.detail.Shipping", {
@@ -11,6 +12,12 @@ sap.ui.define([
 		onInit: function () {
 
 			BaseController.prototype.onInit.bind(this)();
+
+			var oModel = new JSONModel({
+				cc: "ale.szmuch@gmail.com; sebas.goldberg@gmail.com",
+			});
+			this.getView().setModel(oModel, 'form');
+			this.getView().bindElement({path: '/', model: 'form'})
 
 			this.getRouter().getRoute("shipping").attachMatched(this._onShippingMatched, this);
 
@@ -46,11 +53,16 @@ sap.ui.define([
 			}
 
 			this.setBusy(true);
+			
+			let cc = this.getModel('form').getProperty('/cc');
+			cc = cc.split(';').map( x => x.replace(' ','') )
+
 			Promise.all( 
 				aContexts.map( oContext => {
 					let shippingMethodId = oContext.getObject().id;
 					return this.post(`lists/${this._listId}/email/`,{
 						shipping_method: shippingMethodId,
+						cc: cc,
 					});
 				})
 			)

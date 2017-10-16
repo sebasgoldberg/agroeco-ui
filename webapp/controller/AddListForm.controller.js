@@ -27,17 +27,16 @@ sap.ui.define([
 		},
 
 		onAdd: function(){
+			this.setBusy(true);
 			name = this.getView().getModel('form').getProperty('/list/name');
-			this.post('lists/', {'name': name }).then(
-				function(data){
+			this.post('lists/', {'name': name })
+				.then( data => {
 					var eventBus = sap.ui.getCore().getEventBus();
 					eventBus.publish("ListChannel", "onListAdded", data['id']);	
 					this.getRouter().navTo('detail', {listId: data['id']});
-				}.bind(this),
-				function(reason){
-					console.error(reason);
-				}.bind(this)
-			);
+				})
+				.catch( reason => console.error(reason) )
+				.then( () => this.setBusy(false) );
 		},
 
 		onCancel: function(){

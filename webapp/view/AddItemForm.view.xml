@@ -65,7 +65,14 @@
 
         <List
             id="productsList"
-            items="{products>/}"
+            items="{
+                path:'products>/',
+                sorter: {
+                    path: 'product/title',
+                    descending: false,
+                    group: false
+                }
+            }"
             selectionChange="onVendorChange"
             mode="MultiSelect"
             includeItemInSelection="true" >

@@ -36,6 +36,7 @@ sap.ui.define([
 		},
 
 		onRemoveResolution: function(oEvent){
+			this.setBusy(true);
 			this.removeFromTable("resolutionsTable", 
 				object =>
 					this.delete(`resolutions/${object.id}/`)
@@ -45,9 +46,9 @@ sap.ui.define([
 				deletedResolutions => {
 					this.removeDeletedResolutions(deletedResolutions);
 					this.notifyListChanged();
-				},
-				reason => console.error(reason)
-			);
+				})
+			.catch( reason => console.error(reason) )
+			.then( () => this.setBusy(false) );
 		},
 
 		refresh: function(listId){

@@ -85,16 +85,16 @@ sap.ui.define([
 					});
 				}.bind(this));
 
-				return Promise.all(promises).then(
-					function(data){
+				this.setBusy(true);
+
+				return Promise.all(promises)
+					.then( data => {
 						var eventBus = sap.ui.getCore().getEventBus();
 						eventBus.publish("ListChannel", "onListChanged", this._listId);	
 						this.getRouter().navTo('detail', {listId: this._listId});
-					}.bind(this),
-					function(reason){
-						console.error(reason);
-					}.bind(this)
-				);
+					})
+					.catch(reason => console.error(reason) )
+					.then( () => this.setBusy(false) );
 			}
 
 			return new Promise(function(resolve, reject){
