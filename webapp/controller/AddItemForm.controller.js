@@ -20,10 +20,20 @@ sap.ui.define([
 			this.getView().setModel(oModel, 'form');
 			this.getView().bindElement({path: '/', model: 'form'})
 
-			this.loadAndBindModel(
+			this._vendorsLoaded = this.loadAndBindModel(
 				'vendors',{ 
 					modelName:'vendors', 
+				}).then( () => {
+					let oModel = this.getModel('vendors');
+					let vendors = oModel.getObject('/');
+					vendors.unshift({
+						id: undefined,
+						name: "Cualquier Proveedor",
+					});
+					// oModel.setData(vendors);
+					oModel.refresh();
 				});
+			
 
 			this.getRouter().getRoute("addItem").attachPatternMatched(this._onAddItemMatched, this);
 				
@@ -67,7 +77,7 @@ sap.ui.define([
 			});
 			this.getView().setModel(oModel, 'form');
 			this.getView().bindElement({path: '/', model: 'form'})
-			this.refreshProductsList();
+			this._vendorsLoaded.then( () => this.refreshProductsList());
 		},
 
 		onAdd: function(){

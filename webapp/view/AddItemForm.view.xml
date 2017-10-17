@@ -39,7 +39,7 @@
                             <Select
                                 id="vendorsSelect"
                                 change="onChangeVendor"
-                                forceSelection="false"
+                                forceSelection="true"
                                 selectedKey="{form>/vendor}"
                                 items="{
                                     path: 'vendors>/',
