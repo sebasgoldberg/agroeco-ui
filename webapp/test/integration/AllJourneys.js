@@ -14,6 +14,7 @@ sap.ui.require([
 	"iamsoft/agroeco/test/integration/pages/Detail",
 	"iamsoft/agroeco/test/integration/pages/AddListForm",
 	"iamsoft/agroeco/test/integration/pages/AddItemForm",
+	"iamsoft/agroeco/test/integration/pages/detail/Vendors",
 	"iamsoft/agroeco/test/integration/pages/detail/Items",
 	"iamsoft/agroeco/test/integration/pages/detail/Planning",
 	"iamsoft/agroeco/test/integration/pages/detail/Shipping",

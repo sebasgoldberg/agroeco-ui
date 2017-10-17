@@ -91,6 +91,17 @@ sap.ui.define([
 
 		// Assertions
 		Then.onTheDetailPage.iShouldSeeTheDetailPage();
+		Then.onTheVendorsPage.iShouldSeeTheVendorsTable();
+	});
+
+	opaTest("When I push the items tab, the items should be displayed.", function (Given, When, Then) {
+		// Arrangements
+
+		//Actions
+		When.onTheDetailPage.iPressTheItemsTab();
+
+		// Assertions
+		Then.onTheDetailPage.iShouldSeeTheDetailPage();
 		Then.onTheItemsPage.iShouldSeeTheItemsTable();
 	});
 
