@@ -67,10 +67,14 @@ sap.ui.define([
             }.bind(this));
         },
 
-        get: function(relativeUri){
+        get: function(uri, isRelative=true){
             return new Promise(function(resolve, reject){
 
-                var uriService = this.getUriService(relativeUri);
+                let uriService;
+                if (isRelative)
+                    uriService = this.getUriService(uri);
+                else
+                    uriService = uri;
                 
                 jQuery.ajax(uriService,
                     {

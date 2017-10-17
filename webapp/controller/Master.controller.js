@@ -3,7 +3,8 @@ sap.ui.define([
 	"jquery.sap.global",
 	"sap/ui/Device",
 	"iamsoft/agroeco/model/formatter",
-], function(BaseController, jQuery, Device, formatter) {
+    "sap/ui/model/json/JSONModel",
+], function(BaseController, jQuery, Device, formatter, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.Master", {
@@ -129,8 +130,17 @@ sap.ui.define([
 			
 			query.ordering = '-date,-id';
 
-			this.loadAndBindModel('lists?' + jQuery.param(query))
-				.then( data => selectFirst && this.selectFirst() )
+			query.limit = 6;
+
+			this.get('lists?' + jQuery.param(query))
+				.then( result => {
+					var oModel = new JSONModel(result.results || result);
+					this.getView().setModel(oModel);
+					this.getView().bindElement('/');
+					this._nextPage = result.next;
+				})
+				.then( () => this.addNextPage() )
+				.then( () => selectFirst && this.selectFirst() )
 				.catch( reason => console.error(reason) )
 				.then( () => this.setBusy(false) );
 		},
@@ -144,6 +154,26 @@ sap.ui.define([
 			this.getRouter().navTo("detail", {
 				listId: oItem.getBindingContext().getProperty("id")
 			});
+		},
+
+		addNextPage: function(){
+			if (!this._nextPage)
+				return Promise.resolve();
+			return this.get(this._nextPage, false)
+			.then( result => {
+				this._nextPage = result.next;
+				let oModel = this.getModel();
+				let aLists = oModel.getObject('/');
+				result.results.forEach( list => aLists.push(list) );
+				oModel.refresh();
+			})
+		},
+
+		onListUpdateStarted: function(oEvent){
+			if (oEvent.getParameters().reason !== 'Growing')
+				return;
+			this.addNextPage()
+				.catch( reason => this.error(reason) );
 		},
 
 	});

@@ -21,6 +21,10 @@
 				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster' }"
 				selectionChange="onSelectList"
 				id='listsList'
+				updateStarted="onListUpdateStarted"
+				growing="true"
+				growingScrollToLoad="true"
+				growingThreshold="6"
 				>
 				<items>
 					<ObjectListItem
