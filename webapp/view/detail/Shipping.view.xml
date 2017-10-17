@@ -75,7 +75,7 @@
 				demandPopin="true"
 				hAlign="Center" >
 				<header>
-					<Text text="Importe" />
+					<Text text="Importe Envío" />
 				</header>
 			</Column>
 			<Column
@@ -83,7 +83,7 @@
 				demandPopin="true"
 				hAlign="Center" >
 				<header>
-					<Text text="Subtotal" />
+					<Text text="Subtotal Productos" />
 				</header>
 			</Column>
 			

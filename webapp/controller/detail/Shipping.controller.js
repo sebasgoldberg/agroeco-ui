@@ -37,6 +37,7 @@ sap.ui.define([
 		refresh: function(listId){
 			if (this._listId && this._listId == listId)
 				return;
+			this.setBusy(true);
 			if (listId)
 				this._listId = listId;
 			this.loadAndBindModel(
@@ -47,7 +48,9 @@ sap.ui.define([
 					let shippings = oModel.getObject('/');
 					shippings.forEach( shipping => shipping.vendor.subtotal = subtotals[shipping.vendor.id] );
 					oModel.refresh();
-				});
+				})
+				.catch( reason => this.error(reason) )
+				.then( () => this.setBusy(false) );
 			
 		},
 
