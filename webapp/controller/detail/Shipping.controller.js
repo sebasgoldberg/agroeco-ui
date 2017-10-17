@@ -40,7 +40,15 @@ sap.ui.define([
 			if (listId)
 				this._listId = listId;
 			this.loadAndBindModel(
-				`vendors-shipping-methods/?vendor__vproducts__resolutions__item__purchase_list=${this._listId}&expand=vendor&ordering=vendor`);
+				`vendors-shipping-methods/?vendor__vproducts__resolutions__item__purchase_list=${this._listId}&expand=vendor&ordering=vendor`)
+				.then( shippings => this.get(`lists/${this._listId}/vendors_subtotals/`) )
+				.then( subtotals => {
+					let oModel = this.getModel();
+					let shippings = oModel.getObject('/');
+					shippings.forEach( shipping => shipping.vendor.subtotal = subtotals[shipping.vendor.id] );
+					oModel.refresh();
+				});
+			
 		},
 
 		onSendEmail(oEvent){
