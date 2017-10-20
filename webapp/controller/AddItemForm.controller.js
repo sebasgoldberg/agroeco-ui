@@ -47,6 +47,13 @@ sap.ui.define([
 			this.refreshProductsList();
 		},
 
+		onSubmitQuantity: function(oEvent){
+			window.setTimeout(
+				() => this.getView().byId("productsTable").setKeyboardMode("Edit"),
+				100
+			);
+		},
+
 		refreshProductsList: function(){
 			this.setBusy(true);
 			this.getView().unbindElement('products');
@@ -63,6 +70,10 @@ sap.ui.define([
 				'product_uom?' + jQuery.param(query),{ 
 					modelName:'products', 
 					sizeLimit:10000,
+				})
+				.then( data => {
+					data.forEach( product => product.quantity = 0 );
+					this.getModel('products').refresh();
 				})
 				.then( data => this.setBusy(false))
 				.catch( reason => this.setBusy(false));
@@ -82,7 +93,7 @@ sap.ui.define([
 
 		onAdd: function(){
 
-			var aContexts = this.getView().byId('productsList').getSelectedContexts();
+			var aContexts = this.getView().byId('productsTable').getSelectedContexts();
 
 			if (aContexts && aContexts.length) {
 
@@ -90,7 +101,7 @@ sap.ui.define([
 					let product = oContext.getObject()
 					return this.post('items/', {
 						product_uom: product.id,
-						quantity: 0,
+						quantity: product.quantity,
 						purchase_list: Number(this._listId),
 					});
 				}.bind(this));
