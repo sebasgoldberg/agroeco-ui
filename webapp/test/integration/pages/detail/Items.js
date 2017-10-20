@@ -11,15 +11,6 @@ sap.ui.define([
 
 			actions: {
 
-				iPressTheAddItemButton: function(){
-					return this.waitFor({
-						id: "addItemButton",
-						viewName: sViewName,
-						actions: new Press(),
-						errorMessage: "The Add Item Button does not have a trigger."
-					});
-				},
-
 			},
 
 			assertions: {

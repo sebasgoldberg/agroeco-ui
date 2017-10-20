@@ -181,7 +181,7 @@ sap.ui.define([
 	opaTest("Should be displayed the add item view.", function (Given, When, Then) {
 		
 		//Actions
-		When.onTheItemsPage.iPressTheAddItemButton();
+		When.onTheDetailPage.iPressTheAddItemButton();
 
 		// Assertions
 		Then.onTheAddItemFormPage.iShouldSeeTheAddItemFormPage();
@@ -200,7 +200,7 @@ sap.ui.define([
 
 	opaTest("Should be displayed the add item view.", function (Given, When, Then) {
 		//Actions
-		When.onTheItemsPage.iPressTheAddItemButton();
+		When.onTheDetailPage.iPressTheAddItemButton();
 		// Assertions
 		Then.onTheAddItemFormPage.iShouldSeeTheAddItemFormPage();
 
