@@ -2,7 +2,8 @@ sap.ui.define([
 	"iamsoft/agroeco/controller/BaseController",
     "sap/ui/model/json/JSONModel",
 	"iamsoft/agroeco/model/formatter",
-], function(BaseController, JSONModel, formatter) {
+	"sap/m/MessageBox",
+], function(BaseController, JSONModel, formatter, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("iamsoft.agroeco.controller.Detail", {
@@ -70,16 +71,30 @@ sap.ui.define([
 		},
 
 		onDeleteList: function(oEvent){
-			this.setBusy(true);
-			var listId = this.getModel().getProperty('/id');
-			this.delete(`lists/${listId}/`).then(
-				data => {
-					var eventBus = sap.ui.getCore().getEventBus();
-					this.getRouter().navTo('master');
-					eventBus.publish("ListChannel", "onListDeleted", listId);
-				})
-				.catch( reason => console.log(reason) )
-				.then( () => this.setBusy(false) );
+			
+			new Promise( resolve => {
+				MessageBox.show(
+					"Realmente desea eliminar la lista?", {
+						icon: sap.m.MessageBox.Icon.QUESTION,
+						title: "Eliminar Lista",
+						actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+						onClose: oAction => 
+							(oAction == sap.m.MessageBox.Action.YES) && resolve()
+					}
+				  );
+			})
+			.then( () => {
+				this.setBusy(true);
+				var listId = this.getModel().getProperty('/id');
+				this.delete(`lists/${listId}/`).then(
+					data => {
+						var eventBus = sap.ui.getCore().getEventBus();
+						this.getRouter().navTo('master');
+						eventBus.publish("ListChannel", "onListDeleted", listId);
+					})
+					.catch( reason => console.log(reason) )
+					.then( () => this.setBusy(false) );	
+			});
 		},
 
 		onTabSelect : function (oEvent){
