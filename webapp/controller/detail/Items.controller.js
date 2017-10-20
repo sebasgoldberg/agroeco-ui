@@ -45,10 +45,6 @@ sap.ui.define([
 				`items/?purchase_list=${this._listId}&${this.getQueryParams()}`);
 		},
 
-		onAddItem: function(){
-			this.getRouter().navTo("addItem", {listId: this._listId});
-		},
-
 		onAddResolution: function(){
 			var aContexts = this.getView().byId("itemsTable").getSelectedContexts();
 			if (aContexts && aContexts.length) {

@@ -118,5 +118,9 @@ sap.ui.define([
 			.then( () => this.setBusy(false) );
 		},
 
+		onAddItem: function(){
+			this.getRouter().navTo("addItem", {listId: this._listId});
+		},
+
 	});
 });

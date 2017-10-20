@@ -114,6 +114,7 @@
 					<Button icon="sap-icon://less" type="Reject" press="onDeleteList"/>
 					<!-- <Button icon="sap-icon://activities" type="Emphasized"/>
 					<Button icon="sap-icon://paper-plane" type="Accept"/> -->
+                    <Button	text="" press="onAddItem" icon="sap-icon://add" id="addItemButton" type="Accept"/> 
                     <Button	text="" press="onResolve" icon="sap-icon://activate" type="Emphasized"/>
 				</semantic:customFooterContent>
 

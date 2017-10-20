@@ -24,7 +24,6 @@
                 <Title text="Items" level="H2"/>
                 <ToolbarSpacer/>
                 
-                <Button	text="" press="onAddItem" icon="sap-icon://add" id="addItemButton" /> 
                 <Button	text="" press="onRemoveItem" icon="sap-icon://less"/>
 				<Button	text="" press="onSave" icon="sap-icon://save"/>
 
