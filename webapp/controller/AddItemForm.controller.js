@@ -20,21 +20,6 @@ sap.ui.define([
 			this.getView().setModel(oModel, 'form');
 			this.getView().bindElement({path: '/', model: 'form'})
 
-			this._vendorsLoaded = this.loadAndBindModel(
-				'vendors',{ 
-					modelName:'vendors', 
-				}).then( () => {
-					let oModel = this.getModel('vendors');
-					let vendors = oModel.getObject('/');
-					vendors.unshift({
-						id: undefined,
-						name: "Cualquier Proveedor",
-					});
-					// oModel.setData(vendors);
-					oModel.refresh();
-				});
-			
-
 			this.getRouter().getRoute("addItem").attachPatternMatched(this._onAddItemMatched, this);
 				
 		},
@@ -72,6 +57,7 @@ sap.ui.define([
 			if (this._form.search)
 				query.search = this._form.search;
 			query.list_to_exclude = this._form.purchase_list;
+			query.list_id = this._form.purchase_list;
 			this.loadAndBindModel(
 				'product_uom?' + jQuery.param(query),{ 
 					modelName:'products', 
@@ -94,7 +80,25 @@ sap.ui.define([
 			});
 			this.getView().setModel(oModel, 'form');
 			this.getView().bindElement({path: '/', model: 'form'})
-			this._vendorsLoaded.then( () => this.refreshProductsList());
+
+			let query = {
+				list_id: this._listId
+			};
+
+			this.loadAndBindModel(
+				'vendors?'+jQuery.param(query),{ 
+					modelName:'vendors', 
+				}).then( () => {
+					let oModel = this.getModel('vendors');
+					let vendors = oModel.getObject('/');
+					vendors.unshift({
+						id: undefined,
+						name: "Cualquier Proveedor",
+					});
+					// oModel.setData(vendors);
+					oModel.refresh();
+				})
+				.then( () => this.refreshProductsList());
 		},
 
 		onAdd: function(){
