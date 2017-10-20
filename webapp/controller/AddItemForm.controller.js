@@ -54,6 +54,12 @@ sap.ui.define([
 			);
 		},
 
+		onQuantityChange: function(oEvent){
+			let oInput = oEvent.getSource()
+			let oItem = oInput.getParent();
+			oItem.setSelected(true);
+		},
+
 		refreshProductsList: function(){
 			this.setBusy(true);
 			this.getView().unbindElement('products');

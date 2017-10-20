@@ -99,6 +99,7 @@
                         <Input 
                             editable="true"
                             submit="onSubmitQuantity"
+                            liveChange="onQuantityChange"
                             value="{
                                 parts: [{path: 'products>quantity'}, {path: 'products>uom/name'}],
                                 type: 'sap.ui.model.type.Currency',
