@@ -56,8 +56,12 @@ sap.ui.define([
 				return;
 			if (listId)
 				this._listId = listId;
+			let query = {
+				expand: 'vendor_product.vendor,vendor_product.product_uom.uom',
+				item__purchase_list: this._listId
+			};
 			this.loadAndBindModel(
-				`resolutions/?item__purchase_list=${this._listId}&expand=vendor_product.vendor,vendor_product.product_uom.uom`);
+				`resolutions/?`+ jQuery.param(query));
 		},
 
 	});

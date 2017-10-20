@@ -56,7 +56,7 @@
 			</Column>
 		</columns>
 		<items>
-			<ColumnListItem>
+			<ColumnListItem type="Active" press="onItemPress">
 				<cells>
 					<ObjectIdentifier title="{product_uom/product/title}" text="" />
 					<Input 

@@ -132,5 +132,30 @@ sap.ui.define([
 			this.submitChanges();
 		},
 
+		onItemPress: function(oEvent){
+			let oTableItem = oEvent.getSource();
+			let oPurchaseItem = oTableItem.getBindingContext().getObject();
+			let query = {
+				expand: 'vendor_product.vendor,vendor_product.product_uom.uom',
+				item: oPurchaseItem.id
+			};
+			this.setBusy(true);
+			this.loadAndBindModel('resolutions/?'+jQuery.param(query),{ 
+                modelName: 'resolutions', 
+            }).then( data => {
+				if (!this._oPopover) {
+					this._oPopover = sap.ui.xmlfragment("iamsoft.agroeco.view.detail.ItemPopover.", this);
+					this.getView().addDependent(this._oPopover);
+				}
+				this._oPopover.openBy(oTableItem);
+			})
+			.catch( reason => this.error(reason) )
+			.then( () => this.setBusy(false) );
+		},
+
+		handleCloseButton: function(oEvent){
+			this._oPopover.close();
+		},
+
 	});
 });

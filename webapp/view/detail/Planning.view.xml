@@ -5,7 +5,6 @@
     controllerName="iamsoft.agroeco.controller.detail.Planning"
     >
 
-
 	<Table
 		id="resolutionsTable"
 		headerText="Products"
