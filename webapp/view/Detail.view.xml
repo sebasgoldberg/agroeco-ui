@@ -72,7 +72,7 @@
 
                         <IconTabFilter
                             icon="sap-icon://cart-4"
-                            iconColor=""
+                            iconColor="{=${/pending_items}>0?'Negative':'Default'}"
                             design="Vertical"
                             count="{/items_count}"
                             text="Items"
