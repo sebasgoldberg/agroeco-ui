@@ -108,5 +108,15 @@ sap.ui.define([
 			this.getRouter().navTo('master');
 		},
 
+		onResolve: function(){
+			this.setBusy(true);
+			this.post(`lists/${this._listId}/resolutions/`).then(
+				result => {
+					this.notifyListChanged();
+				}
+			).catch( reason => this.erro(reason) )
+			.then( () => this.setBusy(false) );
+		},
+
 	});
 });

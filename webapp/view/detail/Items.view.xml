@@ -27,8 +27,6 @@
                 <Button	text="" press="onAddItem" icon="sap-icon://add" id="addItemButton" /> 
                 <Button	text="" press="onRemoveItem" icon="sap-icon://less"/>
 				<Button	text="" press="onSave" icon="sap-icon://save"/>
-                <!-- <Button	text="" press="onAddResolution" icon="sap-icon://activities"/> -->
-                <Button	text="" press="onResolve" icon="sap-icon://activate"/>
 
             </Toolbar>
         </headerToolbar>

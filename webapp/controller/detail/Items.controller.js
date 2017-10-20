@@ -136,16 +136,5 @@ sap.ui.define([
 			this.submitChanges();
 		},
 
-		onResolve: function(){
-			this.setBusy(true);
-			this.post(`lists/${this._listId}/resolutions/`).then(
-				result => {
-					this.notifyListChanged();
-					this.refresh();
-				}
-			).catch( reason => this.erro(reason) )
-			.then( () => this.setBusy(false) );
-		}
-
 	});
 });
